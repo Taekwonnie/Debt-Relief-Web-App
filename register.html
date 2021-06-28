@@ -1,4 +1,4 @@
-<!--Landing/Login Page-->
+<!--Registration Page-->
 <!DOCTYPE html>
 
 <html>
@@ -13,11 +13,27 @@
         <style>
             h2 {text-align: center;}
 
+            input[type=text] {
+                width: 100%;
+                border-color: gray;
+                border-radius: 8px;
+                margin: 2px 0;
+                outline: none;
+                padding: 8px;
+                box-sizing: border-box;
+                transition: 0.15s;
+            }
+
+            input[type=text]:focus {
+                border-color: dodgerblue;
+                box-shadow: dodgerblue;
+            }
+
             input[type=email] {
                 width: 100%;
                 border-color: gray;
                 border-radius: 8px;
-                margin: 8px 0;
+                margin: 2px 0;
                 outline: none;
                 padding: 8px;
                 box-sizing: border-box;
@@ -46,27 +62,43 @@
             }
         </style>
 
-        <h2>Login to Debt Relief Dashboard</h2>
+        <h2>Create Your Account</h2>
 
         <!--login page input boxes and buttons-->
-        <input type="email" placeholder="Email Address">
+        <input type="text" placeholder="First Name"
+                style="width: 49%;">
+        <input type="text" placeholder="Last Name"
+                style="width: 49%;">
 
-        <input type="password" placeholder="Password">
+        <input type="text" placeholder="Address"
+                style="width: 100%">
+
+        <input type="text" placeholder="City"
+                style="width: 49%">
+            
+        <input type="text" placeholder="State"
+                style="width: 49%">
+        
+        <input type="email" placeholder="Email"
+                style="width: 100%">
+        
+        <input type="password" placeholder="Password"
+                style="width: 100%">
 
         <a href="dashboard.html">
-        <button name="login" type="submit" value="login"
-            style=" background-color: rgb(65, 192, 65);
-                    width: 100%;">
-            LOGIN
-        </button>
-        </a>
-        
-        <a href="register.html">
         <button name="register" type="submit" value="register"
             style=" background-color: rgb(243, 201, 95);
                     width: 100%";>
                     
-            REGISTER A NEW ACCOUNT 
+            REGISTER
+        </button>
+        </a>
+
+        <a href="index.html">
+        <button name="login" type="submit" value="login"
+            style=" background-color: rgb(65, 192, 65);
+                    width: 100%;">
+            Already have an account? Login
         </button>
         </a>
 
