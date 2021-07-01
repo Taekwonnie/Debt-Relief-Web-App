@@ -55,7 +55,7 @@ export default function Signup() {
     <div>
       <Card>
         <CardContent>
-          <h2 className="text-center mb-4">Create your account</h2>
+          <h2 className="text-center mb-4">Create an account</h2>
           {error && <Alert severity="error">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <div

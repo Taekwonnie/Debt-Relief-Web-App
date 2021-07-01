@@ -57,12 +57,13 @@ export default function Login() {
     <>
       <Card>
         <CardContent>
-          <h2 className="text-center mb-4">Login</h2>
+          <h2 className="text-start mb-4">Welcome Back!</h2>
           {error && (
             <Alert variant="outlined" severity="error">
               {error}
             </Alert>
           )}
+          <h6>We're so excited to see you again.</h6>
           <Form onSubmit={handleSubmit}>
             <div
               style={{
