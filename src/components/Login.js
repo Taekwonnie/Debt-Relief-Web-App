@@ -26,7 +26,7 @@ export default function Login() {
       console.log(error.code);
       switch (error.code) {
         case "auth/user-not-found":
-          setError("Sorry, we couldn't find an account withh that username.");
+          setError("Sorry, we couldn't find an account with that username.");
           break;
         case "auth/wrong-password":
           setError(`Sorry, that password isn't right. We can help you 
