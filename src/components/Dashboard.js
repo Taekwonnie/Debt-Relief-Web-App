@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Dashboard() {
@@ -23,7 +22,7 @@ export default function Dashboard() {
   return (
     <>
       <Card>
-        <Card.Body>
+        <CardContent>
           <h2 className="text-center mb-4">Dashboard</h2>
           {error && <Alert severity="danger">{error}</Alert>}
 
@@ -73,7 +72,7 @@ export default function Dashboard() {
               </Button>
             </div>
           </div>
-        </Card.Body>
+        </CardContent>
       </Card>
     </>
   );

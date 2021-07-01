@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory, Link } from "react-router-dom";
-import { Button, TextField, Link as MaterialLink } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Link as MaterialLink,
+  Card,
+  CardContent,
+} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Login() {
@@ -50,7 +56,7 @@ export default function Login() {
   return (
     <>
       <Card>
-        <Card.Body>
+        <CardContent>
           <h2 className="text-center mb-4">Login</h2>
           {error && (
             <Alert variant="outlined" severity="error">
@@ -128,7 +134,7 @@ export default function Login() {
           >
             Forgot Password
           </Button>
-        </Card.Body>
+        </CardContent>
       </Card>
       <div className="w-100 text-end mt-2">
         Don't have an account?{" "}

@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Button, TextField, Link as MaterialLink } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Link as MaterialLink,
+  Card,
+  CardContent,
+} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Signup() {
@@ -48,7 +54,7 @@ export default function Signup() {
   return (
     <div>
       <Card>
-        <Card.Body>
+        <CardContent>
           <h2 className="text-center mb-4">Create your account</h2>
           {error && <Alert severity="error">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -125,7 +131,7 @@ export default function Signup() {
               </Button>
             </div>
           </Form>
-        </Card.Body>
+        </CardContent>
       </Card>
       <div className="w-100 text-end mt-2">
         Already have an account?{" "}

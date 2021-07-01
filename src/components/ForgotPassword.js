@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Card, CardContent } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function ForgotPassword() {
@@ -38,7 +38,7 @@ export default function ForgotPassword() {
   return (
     <>
       <Card>
-        <Card.Body>
+        <CardContent>
           <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert severity="error">{error}</Alert>}
           {messsage && <Alert severity="success">{messsage}</Alert>}
@@ -86,7 +86,7 @@ export default function ForgotPassword() {
           >
             Login
           </Button>
-        </Card.Body>
+        </CardContent>
       </Card>
     </>
   );

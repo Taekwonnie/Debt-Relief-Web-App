@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
@@ -8,6 +8,8 @@ import {
   TextField,
   Tooltip,
   Link as MaterialLink,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 
 export default function UpdateAccount() {
@@ -56,7 +58,7 @@ export default function UpdateAccount() {
   return (
     <div>
       <Card>
-        <Card.Body>
+        <CardContent>
           <h2 className="text-center mb-4">Update Account</h2>
           {error && <Alert severity="error">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
@@ -130,7 +132,7 @@ export default function UpdateAccount() {
               Update
             </Button>
           </Form>
-        </Card.Body>
+        </CardContent>
       </Card>
       <div className="w-100 text-center mt-2">
         <MaterialLink component={Link} to="/">
