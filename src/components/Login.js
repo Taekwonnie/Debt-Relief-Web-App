@@ -101,7 +101,7 @@ export default function Login() {
             type="submit"
             className="w-100 text-center mt-2"
             component={Link}
-            to="/login"
+            to="/forgot-password"
           >
             Forgot Password
           </Button>

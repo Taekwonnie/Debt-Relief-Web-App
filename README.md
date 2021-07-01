@@ -2,13 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Working Features\
+[x] Login \
+[x] Sign Up\
+[x] Reset Password\
+[x] Update password/email
 ## Available Scripts
 
-To start this project you must run:
+Clone this repo then make sure that you're in the project folder, to start this project you must run:
 
-### `1) npm install do this once to install all dependencies ` 
+### `1) npm install` do this once to install all dependencies
 
-### `2) npm start do this everytime you want to start the website` 
+### `2) npm start` do this everytime you want to start the website
 
 
 Runs the app in the development mode.\
