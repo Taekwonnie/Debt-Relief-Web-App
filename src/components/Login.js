@@ -30,12 +30,15 @@ export default function Login() {
           break;
         case "auth/wrong-password":
           setError(`Sorry, that password isn't right. We can help you 
-          recover your password using the "FORGOT PASSWORD" button below`);
+          recover your password using the "FORGOT PASSWORD" button below.`);
           break;
         case "auth/too-many-requests":
           setError(
-            `Sorry, you have tried to login incorrectly too many times. Please reset your password using the "FORGOT PASSWORD" button`
+            `Sorry, you have tried to login incorrectly too many times. Please reset your password using the "FORGOT PASSWORD" button.`
           );
+          break;
+        case "auth/invalid-email":
+          setError(`Sorry, Please enter a valid email.`);
           break;
         default:
           setError("Failed to Log In!");
