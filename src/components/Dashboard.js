@@ -51,29 +51,29 @@ export default function Dashboard() {
           <div className="w-100 text-center mt-2">
             <strong>Email: </strong> {currentUser.email}
           </div>
-        </Card.Body>
-        <div className="w-100 text-center mt-2">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              normal
-              color="default"
-              size="large"
-              type="submit"
-              variant="contained"
-              type="submit"
-              className="w-100 text-center mb-2"
-              onClick={handleLogout}
+          <div className="w-100 text-center mt-2">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              Log Out
-            </Button>
+              <Button
+                normal
+                color="default"
+                size="large"
+                type="submit"
+                variant="contained"
+                type="submit"
+                className="w-100 text-center mb-2"
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
+            </div>
           </div>
-        </div>
+        </Card.Body>
       </Card>
     </>
   );

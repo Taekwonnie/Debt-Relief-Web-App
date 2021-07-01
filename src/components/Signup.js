@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Button, TextField, createMuiTheme } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Signup() {
