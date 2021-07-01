@@ -7,7 +7,7 @@ Working Features\
 [x] Sign Up\
 [x] Reset Password\
 [x] Update password/email
-## Available Scripts
+## Instruction
 
 Clone this repo then make sure that you're in the project folder, to start this project you must run:
 
