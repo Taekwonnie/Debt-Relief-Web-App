@@ -1,4 +1,4 @@
-# Getting Started with Debt Relief APp
+# Getting Started with Debt Relief APP
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
