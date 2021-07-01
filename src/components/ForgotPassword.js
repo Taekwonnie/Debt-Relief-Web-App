@@ -12,18 +12,17 @@ export default function ForgotPassword() {
   const [messsage, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  //Function for the sign up button
+  //Function for the submit button
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       setMessage("");
       setError(""); //Default to no error first
-      setLoading(true); //Prevent the users from spam clicking the login button
-      await resetPassword(emailRef.current.value); //Wait to see if login successful
-      setMessage("Check your inbox for further instructions");
+      setLoading(true); //Prevent the users from spam clicking the submit button
+      await resetPassword(emailRef.current.value); //Wait to see if reset function work
+      setMessage("Check your inbox for further instructions"); //Notify the users to check their email
     } catch (error) {
       //if fail then print the message
-      //console.log(error)
       setError("Failed to reset password");
     }
     setLoading(false);

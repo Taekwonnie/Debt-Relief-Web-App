@@ -13,7 +13,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  //Function for the sign up button
+  //Function for the submit button
   async function handleSubmit(e) {
     e.preventDefault();
     try {
