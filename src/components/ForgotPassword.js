@@ -23,7 +23,14 @@ export default function ForgotPassword() {
       setMessage("Check your inbox for further instructions"); //Notify the users to check their email
     } catch (error) {
       //if fail then print the message
-      setError("Failed to reset password");
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/user-not-found":
+          setError("Sorry, no user was found with that email.");
+          break;
+        default:
+          setError("Failed to reset password");
+      }
     }
     setLoading(false);
   }

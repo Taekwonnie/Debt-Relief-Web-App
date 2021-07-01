@@ -26,9 +26,21 @@ export default function Signup() {
       setLoading(true); //Prevent the users from spam clicking the sign up button
       await signup(emailRef.current.value, passwordRef.current.value); //Wait to see if signup successful
       history.push("/");
-    } catch {
+    } catch (error) {
       //if fail then print the message
-      setError("Failed to create an account");
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setError(
+            "Sorry, the email address is already in use by another account."
+          );
+          break;
+        case "auth/weak-password":
+          setError("Sorry, please enter a stronger password");
+          break;
+        default:
+          setError("Failed to create an account");
+      }
     }
     setLoading(false);
   }

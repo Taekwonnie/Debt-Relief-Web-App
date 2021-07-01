@@ -23,7 +23,23 @@ export default function Login() {
       history.push("/");
     } catch (error) {
       //if fail then print the message
-      setError("Failed to Log In");
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/user-not-found":
+          setError("Sorry, we couldn't find an account withh that username.");
+          break;
+        case "auth/wrong-password":
+          setError(`Sorry, that password isn't right. We can help you 
+          recover your password using the "FORGOT PASSWORD" button below`);
+          break;
+        case "auth/too-many-requests":
+          setError(
+            `Sorry, you have tried to login incorrectly too many times. Please reset your password using the "FORGOT PASSWORD" button`
+          );
+          break;
+        default:
+          setError("Failed to Log In!");
+      }
     }
     setLoading(false);
   }
@@ -33,7 +49,11 @@ export default function Login() {
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Login</h2>
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && (
+            <Alert variant="outlined" severity="error">
+              {error}
+            </Alert>
+          )}
           <Form onSubmit={handleSubmit}>
             <div
               style={{
