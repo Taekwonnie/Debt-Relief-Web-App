@@ -1,12 +1,23 @@
-# Getting Started with Create React App
+# Getting Started with Debt Relief APp
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Working Features\
-[x] Login \
-[x] Sign Up\
-[x] Reset Password\
+<pre>
+Features:
+
+[x] Login
+[x] Sign Up
+[x] Reset Password
 [x] Update password/email
+[x] Page routing / Redirector
+[&nbsp;] Link user with their data
+[ ] Dashboard's sidebar
+[ ] Debt input page
+[ ] Debt chart page
+[ ] Setting page
+[ ] transaction page
+</pre>
+
 ## Instruction
 
 Clone this repo then make sure that you're in the project folder, to start this project you must run:
@@ -20,7 +31,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
 
 ## Learn More
 
