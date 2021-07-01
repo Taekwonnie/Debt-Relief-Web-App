@@ -3,7 +3,12 @@ import { Card, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
-import { Button, TextField, Tooltip } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Tooltip,
+  Link as MaterialLink,
+} from "@material-ui/core";
 
 export default function UpdateAccount() {
   const emailRef = useRef();
@@ -128,7 +133,9 @@ export default function UpdateAccount() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        <Link to="/">Back to dashboard</Link>
+        <MaterialLink component={Link} to="/">
+          Back to dashboard
+        </MaterialLink>
       </div>
     </div>
   );

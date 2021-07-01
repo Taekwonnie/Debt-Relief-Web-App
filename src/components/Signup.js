@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField, Link as MaterialLink } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Signup() {
@@ -128,7 +128,10 @@ export default function Signup() {
         </Card.Body>
       </Card>
       <div className="w-100 text-end mt-2">
-        Already have an account? <Link to="/login">Log in</Link>
+        Already have an account?{" "}
+        <MaterialLink component={Link} to="/login">
+          Log In
+        </MaterialLink>
       </div>
     </div>
   );

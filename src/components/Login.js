@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
-import { Button, TextField } from "@material-ui/core";
+import { useHistory, Link } from "react-router-dom";
+import { Button, TextField, Link as MaterialLink } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Login() {
@@ -22,7 +22,7 @@ export default function Login() {
       await login(emailRef.current.value, passwordRef.current.value); //Wait to see if login successful
       history.push("/");
     } catch (error) {
-      //if fail then print the message
+      //if fail then print the messages
       console.log(error.code);
       switch (error.code) {
         case "auth/user-not-found":
@@ -44,7 +44,7 @@ export default function Login() {
           setError("Failed to Log In!");
       }
     }
-    setLoading(false);
+    setLoading(false); //Done loading
   }
 
   return (
@@ -131,7 +131,10 @@ export default function Login() {
         </Card.Body>
       </Card>
       <div className="w-100 text-end mt-2">
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Don't have an account?{" "}
+        <MaterialLink component={Link} to="/signup">
+          Sign Up
+        </MaterialLink>
       </div>
     </>
   );

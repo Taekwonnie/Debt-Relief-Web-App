@@ -8,7 +8,7 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
-
+import "./App.css";
 function App() {
   return (
     <Container

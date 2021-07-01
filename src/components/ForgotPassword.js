@@ -69,7 +69,7 @@ export default function ForgotPassword() {
               type="submit"
               className="w-100 text-center mt-2"
             >
-              Reset
+              Reset Password
             </Button>
           </Form>
           <Button
