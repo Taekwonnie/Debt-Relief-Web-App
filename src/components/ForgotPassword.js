@@ -39,9 +39,12 @@ export default function ForgotPassword() {
     <>
       <Card>
         <CardContent>
-          <h2 className="text-center mb-4">Password Reset</h2>
+          <h2 className="text-center mb-4">Forgot your password?</h2>
           {error && <Alert severity="error">{error}</Alert>}
           {messsage && <Alert severity="success">{messsage}</Alert>}
+          Please enter the email address for your account. A verification link
+          will be sent to you. Once you have received the link. You will be able
+          to choose a new password for your account.
           <Form onSubmit={handleSubmit}>
             <div
               style={{
