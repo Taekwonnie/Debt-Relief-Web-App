@@ -15,8 +15,7 @@ Clone this repo then make sure that you're in the project folder, to start this 
 
 ### `2) npm start` do this everytime you want to start the website
 
-
-Runs the app in the development mode.\
+\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
