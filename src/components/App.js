@@ -13,6 +13,11 @@ import Sidebar from "./Sidebar";
 import { makeStyles } from "@material-ui/core";
 import { classes } from "istanbul-lib-coverage";
 
+// for dark/light theme
+import { Grid, Typography, Button, Paper } from "@material-ui/core";
+import { ThemeProvider, createMuiTheme  } from "@material-ui/core/styles";
+import { useState } from "react";
+
 const useStyles = makeStyles({
   container: {
     display: "flex",
@@ -20,7 +25,24 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  // dark/light theme
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+    }
+  });
+  
   return (
+    <ThemeProvider theme ={theme}>
+      <Paper>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => setDarkMode(!darkMode)}> 
+          Theme
+      </Button>
+      
     <div className={classes.container}>
       <Container
         className="d-flex align-items-center justify-content-center"
@@ -45,6 +67,8 @@ function App() {
         </div>
       </Container>
     </div>
+    </Paper>
+    </ThemeProvider>
   );
 }
 export default App;
