@@ -20,7 +20,14 @@ export default function UpdateAccount() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const { currentUser } = useAuth();
+
+  const { currentUser, logout } = useAuth();
+  async function handleLogout() {
+    try {
+      await logout();
+      history.push("/login");
+    } catch {}
+  }
 
   //Function for the sign up button
   function handleSubmit(e) {
@@ -58,6 +65,16 @@ export default function UpdateAccount() {
   return (
     <div>
       <Sidebar />
+      <Card>
+        <CardContent>
+          <h2 className="text-center mb-2">Account Information</h2>
+          <div className="w-100 text-center mb-4">
+            <strong>Email: </strong> {currentUser.email}
+          </div>
+        </CardContent>
+      </Card>
+      <br></br>
+
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Update Account</h2>
@@ -133,8 +150,23 @@ export default function UpdateAccount() {
               Update
             </Button>
           </Form>
+
+          <br></br>
+          <Button
+                normal
+                color="default"
+                size="large"
+                type="submit"
+                variant="contained"
+                type="submit"
+                className="w-100 text-center mt-2"
+                onClick={handleLogout}
+              >
+                Log Out
+              </Button>
         </CardContent>
       </Card>
+            
       <div className="w-100 text-center mt-2">
         <MaterialLink component={Link} to="/">
           Back to dashboard

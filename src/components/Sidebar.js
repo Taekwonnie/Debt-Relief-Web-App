@@ -130,7 +130,7 @@ const Sidebar = (props) => {
   ];
   const itemListSecondary = [
     {
-      text: "Update Account",
+      text: "Account",
       icon: <AccountBoxIcon />,
       onClick: () => history.push("/update-account"),
     },
