@@ -11,7 +11,7 @@ import {
   Card,
   CardContent,
 } from "@material-ui/core";
-
+import Sidebar from "./Sidebar";
 export default function UpdateAccount() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -57,6 +57,7 @@ export default function UpdateAccount() {
 
   return (
     <div>
+      <Sidebar />
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Update Account</h2>

@@ -3,12 +3,14 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { Button, Card, CardContent } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import Sidebar from "./Sidebar";
+import Divider from "@material-ui/core/Divider";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
   const history = useHistory();
 
+  const { currentUser, logout } = useAuth();
   async function handleLogout() {
     setError("");
     try {
@@ -21,6 +23,7 @@ export default function Dashboard() {
 
   return (
     <>
+      <Sidebar />
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Dashboard</h2>
