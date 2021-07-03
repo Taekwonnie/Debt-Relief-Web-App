@@ -16,11 +16,12 @@ Features:
 [ ] Debt chart page
 [ ] Setting page
 [ ] transaction page
+
 </pre>
 
 ## Instruction
 
-Make sure you have node.js installed. Video tutorial here: https://youtu.be/HrKsQyuhlnY\
+Make sure you have node.js installed. Video tutorial here: https://youtu.be/HrKsQyuhlnY <br />
 Clone this repo then make sure that you're in the project folder, to start this project you must run:
 
 ### `1) npm install` do this once to install all dependencies
