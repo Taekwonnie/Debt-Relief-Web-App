@@ -9,20 +9,12 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
 import "./App.css";
-import Sidebar from "./Sidebar";
-import { makeStyles } from "@material-ui/core";
 import { classes } from "istanbul-lib-coverage";
 
 // for dark/light theme
-import { Grid, Typography, Button, Paper } from "@material-ui/core";
-import { ThemeProvider, createMuiTheme  } from "@material-ui/core/styles";
+import { Button, Paper } from "@material-ui/core";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { useState } from "react";
-
-const useStyles = makeStyles({
-  container: {
-    display: "flex",
-  },
-});
 
 function App() {
   // dark/light theme
@@ -30,44 +22,45 @@ function App() {
   const theme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
-    }
+    },
   });
-  
+
   return (
-    <ThemeProvider theme ={theme}>
+    <ThemeProvider theme={theme}>
       <Paper>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => setDarkMode(!darkMode)}> 
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => setDarkMode(!darkMode)}
+        >
           Theme
-      </Button>
-      
-    <div className={classes.container}>
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <div className="w-100" style={{ maxWidth: "500px" }}>
-          <Router>
-            <AuthProvider>
-              <Switch>
-                <PrivateRoute exact path="/" component={Dashboard} />
-                <PrivateRoute
-                  exact
-                  path="/update-account"
-                  component={UpdateAccount}
-                />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/forgot-password" component={ForgotPassword} />
-              </Switch>
-            </AuthProvider>
-          </Router>
+        </Button>
+
+        <div className={classes.container}>
+          <Container
+            className="d-flex align-items-center justify-content-center"
+            style={{ minHeight: "100vh" }}
+          >
+            <div className="w-100" style={{ maxWidth: "500px" }}>
+              <Router>
+                <AuthProvider>
+                  <Switch>
+                    <PrivateRoute exact path="/" component={Dashboard} />
+                    <PrivateRoute
+                      exact
+                      path="/update-account"
+                      component={UpdateAccount}
+                    />
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/forgot-password" component={ForgotPassword} />
+                  </Switch>
+                </AuthProvider>
+              </Router>
+            </div>
+          </Container>
         </div>
-      </Container>
-    </div>
-    </Paper>
+      </Paper>
     </ThemeProvider>
   );
 }

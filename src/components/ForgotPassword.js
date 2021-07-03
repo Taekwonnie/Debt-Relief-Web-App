@@ -66,7 +66,6 @@ export default function ForgotPassword() {
               normal
               color="secondary"
               size="large"
-              type="submit"
               variant="contained"
               disabled={loading}
               type="submit"
@@ -82,7 +81,6 @@ export default function ForgotPassword() {
             type="submit"
             variant="contained"
             disabled={loading}
-            type="submit"
             className="w-100 text-center mt-2"
             component={Link}
             to="/login"

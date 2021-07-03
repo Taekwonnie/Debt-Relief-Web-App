@@ -121,7 +121,6 @@ export default function Signup() {
                 normal
                 color="primary"
                 size="large"
-                type="submit"
                 variant="contained"
                 disabled={loading}
                 type="submit"

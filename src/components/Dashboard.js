@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import { Button, Card, CardContent } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
-import Divider from "@material-ui/core/Divider";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
@@ -40,7 +39,6 @@ export default function Dashboard() {
               normal
               color="primary"
               size="large"
-              type="submit"
               variant="contained"
               type="submit"
               className="w-100 text-center mt-2 mb-2"
@@ -65,7 +63,6 @@ export default function Dashboard() {
                 normal
                 color="default"
                 size="large"
-                type="submit"
                 variant="contained"
                 type="submit"
                 className="w-100 text-center mb-2"

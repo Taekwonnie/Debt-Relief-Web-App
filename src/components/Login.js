@@ -114,7 +114,6 @@ export default function Login() {
                 type="submit"
                 variant="contained"
                 disabled={loading}
-                type="submit"
                 className="w-100 text-center mt-2"
               >
                 Log In
@@ -125,7 +124,6 @@ export default function Login() {
             normal
             color="default"
             size="large"
-            type="submit"
             variant="contained"
             disabled={loading}
             type="submit"

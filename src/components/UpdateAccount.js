@@ -141,7 +141,6 @@ export default function UpdateAccount() {
               normal
               color="primary"
               size="large"
-              type="submit"
               variant="contained"
               disabled={loading}
               type="submit"
@@ -153,20 +152,19 @@ export default function UpdateAccount() {
 
           <br></br>
           <Button
-                normal
-                color="default"
-                size="large"
-                type="submit"
-                variant="contained"
-                type="submit"
-                className="w-100 text-center mt-2"
-                onClick={handleLogout}
-              >
-                Log Out
-              </Button>
+            normal
+            color="default"
+            size="large"
+            variant="contained"
+            type="submit"
+            className="w-100 text-center mt-2"
+            onClick={handleLogout}
+          >
+            Log Out
+          </Button>
         </CardContent>
       </Card>
-            
+
       <div className="w-100 text-center mt-2">
         <MaterialLink component={Link} to="/">
           Back to dashboard

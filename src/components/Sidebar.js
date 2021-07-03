@@ -28,10 +28,6 @@ import {
 } from "@material-ui/core";
 const drawerWidth = 270;
 const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: 500,
-    flexShrink: 0,
-  },
   drawerPaper: {
     width: 500,
   },
@@ -94,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = (props) => {
-  const { currentUser, logout } = useAuth();
+  const { logout } = useAuth();
   async function handleLogout() {
     try {
       await logout();
