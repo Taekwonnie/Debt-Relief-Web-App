@@ -10,8 +10,8 @@ Features:
 [x] Reset Password
 [x] Update password/email
 [x] Page routing / Redirector
-[&nbsp;] Link user with their data
-[ ] Dashboard's sidebar
+[x] Dashboard's sidebar
+[ ] Link user with their data
 [ ] Debt input page
 [ ] Debt chart page
 [ ] Setting page
