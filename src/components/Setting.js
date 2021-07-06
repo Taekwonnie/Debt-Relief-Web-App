@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import {
   Button,
@@ -8,7 +8,13 @@ import {
   FormControlLabel,
   Card,
   Switch,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
+  TextField,
   Box,
   FormHelperText,
   CardContent,
@@ -25,26 +31,87 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Setting() {
-  const [loading, setLoading] = useState(false); //For button
+  //For import/export prompt
+  const [openExport, setOpenExport] = useState(false);
+  const [openImport, setOpenImport] = useState(false);
+
+  const handleClickOpenImport = () => {
+    setOpenImport(true);
+  };
+  const handleCloseImport = () => {
+    setOpenImport(false);
+  };
+
+  const importTextRef = useRef();
+  const handleCloseImportSave = () => {
+    setOpenImport(false);
+    var data = JSON.parse(importTextRef.current.value);
+    console.log(importTextRef.current.value);
+    Object.keys(data).forEach(function (k) {
+      localStorage.setItem(k, data[k]);
+    });
+  };
+  const handleClickOpenExport = () => {
+    setOpenExport(true);
+  };
+  const handleCloseExport = () => {
+    setOpenExport(false);
+  };
+
+  const [loading] = useState(false); //For button
+  var savedNotifyVal;
+  var savedCurrencyVal = "";
+  var exportJson = "";
+
+  function exportLocal() {
+    exportJson = JSON.stringify(localStorage);
+    return exportJson;
+  }
+  exportJson = exportLocal();
+
+  //Function to get saved notify setting
+  function getNotifyLocal() {
+    savedNotifyVal = JSON.parse(localStorage.getItem("notify"));
+    return savedNotifyVal;
+  }
+
+  //Function to get saved currency setting
+  function getCurrencyLocal() {
+    savedCurrencyVal = localStorage.getItem("currency");
+    if (!savedNotifyVal) {
+      return "USD";
+    } else {
+      return savedCurrencyVal;
+    }
+  }
+
+  //Get setting from localStorage
+  savedNotifyVal = getNotifyLocal();
+  savedCurrencyVal = getCurrencyLocal();
 
   const [state, setState] = useState({
     //For check box
-    notify: false,
+    notify: savedNotifyVal,
   });
+
   const [currency, setCurrency] = useState(""); //For currency
 
-  const handleChange = (event) => {
+  const handleChangeCurrency = (event) => {
     //For changes
     setCurrency(event.target.value);
+  };
+  const handleChangeNotify = (event) => {
+    //For changes
     setState({ ...state, [event.target.name]: event.target.checked });
   };
   const classes = useStyles();
-  var defCurrency;
 
   //Handle save setting button
   async function saveButton() {
     if (currency) {
       localStorage.setItem("currency", currency);
+    } else {
+      localStorage.setItem("currency", "USD");
     }
     localStorage.setItem("notify", state.notify);
   }
@@ -55,31 +122,40 @@ export default function Setting() {
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Setting</h2>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <Select
-              labelId="demo-simple-select-filled-label"
-              id="demo-simple-select-filled"
-              value={currency}
-              onChange={handleChange}
-            >
-              <MenuItem value={"USD"}>U.S. Dollar</MenuItem>
-              <MenuItem value={"EUR"}>European Euro</MenuItem>
-              <MenuItem value={"JPY"}>Japanese Yen</MenuItem>
-            </Select>
-            <FormHelperText className="w-100 text-justify mt-2">
-              Set your currency
-            </FormHelperText>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={state.notify}
-                  onChange={handleChange}
-                  name="notify"
-                />
-              }
-              label="Receive communication from Debt Relief."
-            />
-          </FormControl>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <FormControl variant="outlined" className={classes.formControl}>
+              <Select
+                labelId="demo-simple-select-filled-label"
+                id="demo-simple-select-filled"
+                value={currency}
+                onChange={handleChangeCurrency}
+                autoWidth={true}
+              >
+                <MenuItem value={"USD"}>U.S. Dollar</MenuItem>
+                <MenuItem value={"EUR"}>European Euro</MenuItem>
+                <MenuItem value={"JPY"}>Japanese Yen</MenuItem>
+              </Select>
+              <FormHelperText className="w-100 text-justify mt-2">
+                Set your currency
+              </FormHelperText>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.notify}
+                    onChange={handleChangeNotify}
+                    name="notify"
+                  />
+                }
+                label="Receive communication from Debt Relief."
+              />
+            </FormControl>
+          </div>
           <Button
             color="primary"
             size="large"
@@ -91,10 +167,41 @@ export default function Setting() {
           >
             Save Settings
           </Button>
+          <Dialog
+            open={openImport}
+            onClose={handleCloseImport}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Import</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To import your settings, please paste the content from the
+                export function.
+              </DialogContentText>
+              <TextField
+                required
+                autoFocus
+                margin="dense"
+                id="importText"
+                inputRef={importTextRef}
+                label="Paste it here"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseImport} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleCloseImportSave} color="primary">
+                Import
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Box display="flex" justifyContent="space-between">
             <Button
               color="primary"
               size="large"
+              onClick={handleClickOpenImport}
               type="submit"
               variant="contained"
               disabled={loading}
@@ -102,9 +209,34 @@ export default function Setting() {
             >
               Import Settings
             </Button>
+
+            <Dialog
+              open={openExport}
+              onClose={handleCloseExport}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {
+                  "Copy the text below and paste it in the import prompt to transfer your settings!"
+                }
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {exportJson}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseExport} color="primary" autoFocus>
+                  Okay
+                </Button>
+              </DialogActions>
+            </Dialog>
+
             <Button
               color="primary"
               size="large"
+              onClick={handleClickOpenExport}
               type="submit"
               variant="contained"
               disabled={loading}
