@@ -53,6 +53,7 @@ export default function Setting() {
     if (importTextRef.current.value) {
       setOpenImport(false);
     }
+    window.location.reload();
   };
   const handleClickOpenExport = () => {
     setOpenExport(true);
@@ -119,7 +120,7 @@ export default function Setting() {
       localStorage.setItem("notify", state.notify);
     }
 
-    //window.location.reload();
+    window.location.reload();
   }
 
   return (
