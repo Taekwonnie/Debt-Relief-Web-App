@@ -16,6 +16,7 @@ import {
   FormControl,
   TextField,
   Box,
+  InputLabel,
   FormHelperText,
   CardContent,
 } from "@material-ui/core";
@@ -80,11 +81,7 @@ export default function Setting() {
   //Function to get saved currency setting
   function getCurrencyLocal() {
     savedCurrencyVal = localStorage.getItem("currency");
-    if (!savedNotifyVal) {
-      return "USD";
-    } else {
-      return savedCurrencyVal;
-    }
+    return savedCurrencyVal;
   }
 
   //Get setting from localStorage
@@ -100,6 +97,7 @@ export default function Setting() {
 
   const handleChangeCurrency = (event) => {
     //For changes
+    console.log(event.target.value);
     setCurrency(event.target.value);
   };
   const handleChangeNotify = (event) => {
@@ -110,12 +108,18 @@ export default function Setting() {
 
   //Handle save setting button
   async function saveButton() {
-    if (currency) {
-      localStorage.setItem("currency", currency);
+    console.log(`Currency: ${currency}`);
+    console.log(`Savedcurrent: ${savedCurrencyVal}`);
+
+    if (!currency) {
+      localStorage.setItem("currency", savedCurrencyVal);
+      localStorage.setItem("notify", state.notify);
     } else {
-      localStorage.setItem("currency", "USD");
+      localStorage.setItem("currency", currency);
+      localStorage.setItem("notify", state.notify);
     }
-    localStorage.setItem("notify", state.notify);
+
+    //window.location.reload();
   }
 
   return (
@@ -133,15 +137,22 @@ export default function Setting() {
           >
             <FormControl variant="outlined" className={classes.formControl}>
               <Select
+                defaultValue={currency.currentCurrency}
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
+                label="test"
                 value={currency}
                 onChange={handleChangeCurrency}
                 autoWidth={true}
+                className={classes.selectEmpty}
+                inputProps={{ "aria-label": "Without label" }}
               >
-                <MenuItem value={"USD"}>U.S. Dollar</MenuItem>
-                <MenuItem value={"EUR"}>European Euro</MenuItem>
-                <MenuItem value={"JPY"}>Japanese Yen</MenuItem>
+                <MenuItem value="" disabled>
+                  Current: {savedCurrencyVal}
+                </MenuItem>
+                <MenuItem value={"USD"}>U.S. Dollar (USD)</MenuItem>
+                <MenuItem value={"EUR"}>European Euro (EUR)</MenuItem>
+                <MenuItem value={"JPY"}>Japanese Yen (JPY)</MenuItem>
               </Select>
               <FormHelperText className="w-100 text-justify mt-2">
                 Set your currency
