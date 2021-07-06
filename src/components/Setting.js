@@ -44,12 +44,14 @@ export default function Setting() {
 
   const importTextRef = useRef();
   const handleCloseImportSave = () => {
-    setOpenImport(false);
     var data = JSON.parse(importTextRef.current.value);
     console.log(importTextRef.current.value);
     Object.keys(data).forEach(function (k) {
       localStorage.setItem(k, data[k]);
     });
+    if (importTextRef.current.value) {
+      setOpenImport(false);
+    }
   };
   const handleClickOpenExport = () => {
     setOpenExport(true);
