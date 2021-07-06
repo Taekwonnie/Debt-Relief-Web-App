@@ -29,13 +29,15 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Paper>
+        <div class="theme-button">
         <Button
           variant="outlined"
-          color="primary"
+          color="secondary"
           onClick={() => setDarkMode(!darkMode)}
         >
           Theme
         </Button>
+        </div>
         <div className={classes.container}>
           <Container
             className="d-flex align-items-center justify-content-center"
