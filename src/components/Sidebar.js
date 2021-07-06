@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import PieChartIcon from '@material-ui/icons/PieChart';
 import { withRouter } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
@@ -122,6 +123,10 @@ const Sidebar = (props) => {
     {
       text: "Transactions & Expenses",
       icon: <MonetizationOnIcon />,
+    },
+    {
+      text: "Analytics ",
+      icon: <PieChartIcon />,
     },
   ];
   const itemListSecondary = [
