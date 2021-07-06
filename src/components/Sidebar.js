@@ -133,6 +133,7 @@ const Sidebar = (props) => {
     {
       text: "Settings ",
       icon: <SettingsIcon />,
+      onClick: () => history.push("/setting"),
     },
     {
       text: "Logout ",

@@ -8,6 +8,7 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
+import Setting from "./Setting";
 import "./App.css";
 import { classes } from "istanbul-lib-coverage";
 
@@ -35,7 +36,6 @@ function App() {
         >
           Theme
         </Button>
-
         <div className={classes.container}>
           <Container
             className="d-flex align-items-center justify-content-center"
@@ -51,6 +51,7 @@ function App() {
                       path="/update-account"
                       component={UpdateAccount}
                     />
+                    <PrivateRoute exact path="/setting" component={Setting} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
