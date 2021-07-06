@@ -27,10 +27,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Setting() {
   const [loading, setLoading] = useState(false); //For button
 
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     //For check box
-    checkedA: true,
-    checkedB: true,
+    notify: false,
   });
   const [currency, setCurrency] = useState(""); //For currency
 
@@ -40,6 +39,15 @@ export default function Setting() {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
   const classes = useStyles();
+  var defCurrency;
+
+  //Handle save setting button
+  async function saveButton() {
+    if (currency) {
+      localStorage.setItem("currency", currency);
+    }
+    localStorage.setItem("notify", state.notify);
+  }
 
   return (
     <div>
@@ -64,20 +72,20 @@ export default function Setting() {
             <FormControlLabel
               control={
                 <Switch
-                  checked={state.checkedA}
+                  checked={state.notify}
                   onChange={handleChange}
-                  name="checkedA"
+                  name="notify"
                 />
               }
               label="Receive communication from Debt Relief."
             />
           </FormControl>
           <Button
-            normal
             color="primary"
             size="large"
             type="submit"
             variant="contained"
+            onClick={saveButton}
             disabled={loading}
             className="w-100 text-center mt-2"
           >
@@ -85,7 +93,6 @@ export default function Setting() {
           </Button>
           <Box display="flex" justifyContent="space-between">
             <Button
-              normal
               color="primary"
               size="large"
               type="submit"
@@ -96,7 +103,6 @@ export default function Setting() {
               Import Settings
             </Button>
             <Button
-              normal
               color="primary"
               size="large"
               type="submit"
