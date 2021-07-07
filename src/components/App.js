@@ -5,6 +5,8 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
+import Debt from "./Debt";
+import Income from "./Income"
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
@@ -57,6 +59,8 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
+                    <Route path="/debt" component={Debt} />
+                    <Route path="/income" component={Income} />
                   </Switch>
                 </AuthProvider>
               </Router>

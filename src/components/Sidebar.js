@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PieChartIcon from '@material-ui/icons/PieChart';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import { withRouter } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
@@ -119,6 +120,12 @@ const Sidebar = (props) => {
     {
       text: "Debt Input ",
       icon: <AssignmentIcon />,
+      onClick: () => history.push("/Debt"),
+    },
+    {
+      text: "Income ",
+      icon: <AccountBalanceWalletIcon />,
+      onClick: () => history.push("/income"),
     },
     {
       text: "Transactions & Expenses",
