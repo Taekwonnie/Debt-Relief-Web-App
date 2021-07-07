@@ -130,6 +130,7 @@ const Sidebar = (props) => {
     {
       text: "Transactions & Expenses",
       icon: <MonetizationOnIcon />,
+      onClick: () => history.push("/expense"),
     },
     {
       text: "Analytics ",
