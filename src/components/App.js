@@ -5,9 +5,13 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
+import Debt from "./Debt";
+import Income from "./Income"
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
+import Setting from "./Setting";
+import Expense from "./Expense";
 import "./App.css";
 import { classes } from "istanbul-lib-coverage";
 
@@ -15,6 +19,7 @@ import { classes } from "istanbul-lib-coverage";
 import { Button, Paper } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { useState } from "react";
+
 
 function App() {
   // dark/light theme
@@ -28,14 +33,15 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Paper>
+        <div class="theme-button">
         <Button
           variant="outlined"
-          color="primary"
+          color="secondary"
           onClick={() => setDarkMode(!darkMode)}
         >
           Theme
         </Button>
-
+        </div>
         <div className={classes.container}>
           <Container
             className="d-flex align-items-center justify-content-center"
@@ -51,9 +57,13 @@ function App() {
                       path="/update-account"
                       component={UpdateAccount}
                     />
+                    <PrivateRoute exact path="/setting" component={Setting} />
                     <Route path="/login" component={Login} />
+                    <Route path="/expense" component={Expense} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
+                    <Route path="/debt" component={Debt} />
+                    <Route path="/income" component={Income} />
                   </Switch>
                 </AuthProvider>
               </Router>

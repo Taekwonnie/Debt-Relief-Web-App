@@ -2,3 +2,23 @@
 * {
   font-family: "Source Sans Pro", sans-serif;
 }
+
+.theme-button {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+}
+
+/*webkit-scrollbar does not work with Firefox, Firefox for Android, and Internet Explorer*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(rgb(71, 71, 253), rgb(128, 128, 255));
+  border-radius: 10px;
+}

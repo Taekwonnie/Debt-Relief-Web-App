@@ -11,10 +11,10 @@ Features:
 [x] Update password/email
 [x] Page routing / Redirector
 [x] Dashboard's sidebar
+[X] Setting page
 [ ] Link user with their data
 [ ] Debt input page
 [ ] Debt chart page
-[ ] Setting page
 [ ] transaction page
 
 </pre>

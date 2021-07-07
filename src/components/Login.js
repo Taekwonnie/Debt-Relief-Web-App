@@ -90,7 +90,6 @@ export default function Login() {
               }}
             >
               <TextField
-                normal
                 required
                 id="standard-required"
                 label="Password"
@@ -108,7 +107,6 @@ export default function Login() {
               }}
             >
               <Button
-                normal
                 color="primary"
                 size="large"
                 type="submit"
@@ -121,7 +119,6 @@ export default function Login() {
             </div>
           </Form>
           <Button
-            normal
             color="default"
             size="large"
             variant="contained"
