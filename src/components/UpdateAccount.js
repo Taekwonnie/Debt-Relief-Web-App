@@ -3,6 +3,8 @@ import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
+import { Container } from "react-bootstrap";
+
 import {
   Button,
   TextField,
@@ -65,6 +67,7 @@ export default function UpdateAccount() {
   return (
     <div>
       <Sidebar />
+
       <Card>
         <CardContent>
           <h2 className="text-center mb-2">Account Information</h2>
