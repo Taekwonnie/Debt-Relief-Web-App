@@ -59,7 +59,6 @@ export default function Dashboard() {
               }}
             >
               <Button
-                normal
                 color="default"
                 size="large"
                 variant="contained"

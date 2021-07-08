@@ -56,15 +56,15 @@ function App() {
                       path="/update-account"
                       component={UpdateAccount}
                     />
+                    <PrivateRoute exact path="/debt" component={Debt} />
+                    <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
+                    <PrivateRoute exact path="/testdb" component={Testdb} />
+                    <PrivateRoute exact path="/expense" component={Expense} />
                     <Route path="/login" component={Login} />
-                    <Route path="/testdb" component={Testdb} />
 
-                    <Route path="/expense" component={Expense} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
-                    <Route path="/debt" component={Debt} />
-                    <Route path="/income" component={Income} />
                   </Switch>
                 </AuthProvider>
               </Router>

@@ -82,7 +82,6 @@ export default function Signup() {
               }}
             >
               <TextField
-                normal
                 required
                 id="standard-required"
                 label="Password"
@@ -100,7 +99,6 @@ export default function Signup() {
               }}
             >
               <TextField
-                normal
                 required
                 id="standard-required"
                 label="Confirm Password"
@@ -118,7 +116,6 @@ export default function Signup() {
               }}
             >
               <Button
-                normal
                 color="primary"
                 size="large"
                 variant="contained"

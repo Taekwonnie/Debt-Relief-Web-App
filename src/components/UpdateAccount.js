@@ -91,7 +91,6 @@ export default function UpdateAccount() {
               }}
             >
               <TextField
-                normal
                 required
                 id="standard-required"
                 label="Email"
@@ -110,7 +109,6 @@ export default function UpdateAccount() {
             >
               <Tooltip title="Leave blank if you don't want to change">
                 <TextField
-                  normal
                   id="standard-required"
                   label="Password"
                   defaultValue=""
@@ -130,7 +128,6 @@ export default function UpdateAccount() {
             >
               <Tooltip title="Leave blank if you don't want to change">
                 <TextField
-                  normal
                   id="standard-required"
                   label="Confirm Password"
                   defaultValue=""
@@ -141,7 +138,6 @@ export default function UpdateAccount() {
               </Tooltip>
             </div>
             <Button
-              normal
               color="primary"
               size="large"
               variant="contained"
@@ -155,7 +151,6 @@ export default function UpdateAccount() {
 
           <br></br>
           <Button
-            normal
             color="default"
             size="large"
             variant="contained"

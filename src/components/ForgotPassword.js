@@ -63,7 +63,6 @@ export default function ForgotPassword() {
               />
             </div>
             <Button
-              normal
               color="secondary"
               size="large"
               variant="contained"
@@ -75,7 +74,6 @@ export default function ForgotPassword() {
             </Button>
           </Form>
           <Button
-            normal
             color="primary"
             size="large"
             type="submit"
