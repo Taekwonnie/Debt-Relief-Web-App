@@ -6,6 +6,9 @@ import Alert from "@material-ui/lab/Alert";
 import { Container } from "react-bootstrap";
 
 import {
+  makeStyles,
+  CardHeader,
+  Avatar,
   Button,
   TextField,
   Tooltip,
@@ -69,11 +72,19 @@ export default function UpdateAccount() {
       <Sidebar />
 
       <Card>
+        <CardHeader 
+          avatar={
+            <Avatar aria-label="profile-pic">
+              
+            </Avatar>
+          } 
+          />
         <CardContent>
           <h2 className="text-center mb-2">Account Information</h2>
           <div className="w-100 text-center mb-4">
             <strong>Email: </strong> {currentUser.email}
           </div>
+          
         </CardContent>
       </Card>
       <br></br>
