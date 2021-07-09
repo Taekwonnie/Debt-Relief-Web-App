@@ -148,9 +148,18 @@ export default function Expense() {
                   <MenuItem value="" disabled>
                     Transaction Type:
                   </MenuItem>
-                  <MenuItem value={"Car"}>Car Payment</MenuItem>
+                  <MenuItem value={"Vehicle"}>Vehicle (Payment/Insurance/Maintenance)</MenuItem>
                   <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                  <MenuItem value={"Other"}>Others</MenuItem>
+                  <MenuItem value={"Home_improvement"}>Home Improvement</MenuItem>
+                  <MenuItem value={"Utility"}>Utility</MenuItem>
+                  <MenuItem value={"Petrol_Gas"}>Petrol/Gas</MenuItem>
+                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                  <MenuItem value={"Medical"}>Medical</MenuItem>
+                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem>
+                  <MenuItem value={"Cellular_Phone_Payment"}>Cellular/Phone Payment</MenuItem>
+                  <MenuItem value={"Education"}>Education</MenuItem>
+                  <MenuItem value={"Misc"}>Misc</MenuItem>
+
                 </Select>
                 <FormHelperText className="w-100 text-justify mt-2">
                   Set the transaction type
