@@ -144,7 +144,6 @@ export default function Expense() {
   const noteInputRef = useRef();
 
   async function addExpenseButton() {
-    //setLoading(true);
     if (amountInputRef.current.value == "") {
       setError("Sorry, please enter the amount for this transaction");
       return;
@@ -172,7 +171,7 @@ export default function Expense() {
     amountInputRef.current.value = "";
     noteInputRef.current.value = "";
     setSelectedDate(new Date());
-    //setLoading(false);
+    window.location.reload();
   }
 
   //#GetData
@@ -212,7 +211,10 @@ export default function Expense() {
 
   //Table
   return (
-    <div>
+    <div
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "125vh" }}
+    >
       <Sidebar />
       <Grid container spacing={3}>
         <Grid item sx={24} sm={12}>
@@ -359,7 +361,7 @@ export default function Expense() {
                 </Table>
               </TableContainer>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5]}
                 component="div"
                 count={data.length}
                 rowsPerPage={rowsPerPage}
