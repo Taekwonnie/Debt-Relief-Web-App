@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-
+import { useAuth } from "../contexts/AuthContext";
 export default function Testdb() {
+  const { currentUser } = useAuth(); //Get the UUID of current login users
   const [userTransaction, setUserTransaction] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function getTransaction() {
-    setLoading(true);
-    const transactionRef = db
-      .collection("UserTransaction")
-      .where("userID", "==", "R9uFVnSifARYDs4w9w1YHsfhq9N2");
-    const snapshot = await transactionRef.get();
+    //setLoading(true);
+    const transactionRef = db.collection("UserTransaction");
+    const snapshot = await transactionRef
+      .where("UserID", "==", currentUser.uid)
+      .get();
     if (snapshot.empty) {
       console.log("No matching documents.");
       return;
@@ -18,8 +19,7 @@ export default function Testdb() {
     snapshot.forEach((doc) => {
       console.log(doc.id, "=>", doc.data());
     });
-
-    setLoading(false);
+    //setLoading(false);
   }
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import DateFnsUtils from "@date-io/date-fns";
 import Alert from "@material-ui/lab/Alert";
@@ -6,15 +6,30 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import PropTypes from "prop-types";
 import {
+  Table,
   Button,
   Select,
   MenuItem,
-  makeStyles,
   FormControl,
   Card,
+  TablePagination,
   TextField,
   Grid,
+  TableCell,
+  TableRow,
+  Paper,
+  TableContainer,
+  TableHead,
+  TableBody,
+  Typography,
+  makeStyles,
+  Box,
+  Collapse,
+  IconButton,
   FormHelperText,
   CardContent,
   Tooltip,
@@ -22,6 +37,7 @@ import {
 import moment from "moment";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
+import { StayCurrentLandscape } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -40,12 +56,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
+const columns = [
+  {
+    id: "ID",
+    label: "ID",
+    maxWidth: 5,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "Type",
+    label: "Type",
+    minWidth: 100,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "Date",
+    label: "Date",
+    minWidth: 120,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "Amount",
+    label: "Amount",
+    minWidth: 100,
+  },
+  {
+    id: "Note",
+    label: "Note",
+    minWidth: 100,
+    format: (value) => value.toLocaleString("en-US"),
+  },
+];
+
 export default function Expense() {
   const [selectedDate, setSelectedDate] = React.useState(new Date()); //Set and get the date from the date picker
   const [error, setError] = useState(""); //For alerting errors to users
   const { currentUser, logout } = useAuth(); //Get the UUID of current login users
   const [transType, setTransType] = useState(""); //For Transaction Type
   const [loading, setLoading] = useState(false); //Set loading state
+  //Table
+  const [page, setPage] = useState(0); //Table Page handle
+  const [rowsPerPage, setRowsPerPage] = useState(5); //Table page properties
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const handleChangeType = (event) => {
     //Handle the changing value for types
     setTransType(event.target.value);
@@ -57,29 +121,49 @@ export default function Expense() {
     setSelectedDate(date);
   };
 
-  var amountInputRef = useRef();
+  async function generateNewID() {
+    var highestID = 0;
+    const docRef = db.collection("UserTransaction");
+    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get();
+    if (snapshot.empty) {
+      return highestID;
+    }
+    snapshot.forEach((doc) => {
+      const dataResult = doc.data();
+      if (dataResult.ID > highestID) {
+        highestID = dataResult.ID;
+      }
+      if (!dataResult.ID) {
+        highestID = Number(0);
+      }
+    });
+    return highestID;
+  }
+
+  const amountInputRef = useRef();
   const noteInputRef = useRef();
 
   async function addExpenseButton() {
-    setLoading(true);
+    //setLoading(true);
     if (amountInputRef.current.value == "") {
       setError("Sorry, please enter the amount for this transaction");
       return;
     }
-    if (transType == "") {
+    if (!transType) {
       setError("Sorry, please pick the type for this transaction");
       return;
     }
+    var newID = Number(await generateNewID()) + Number(1);
     var date = moment(selectedDate).format("YYYY-MM-DD");
     const transactionData = {
-      Amount: amountInputRef.current.value,
+      Amount: formatter.format(amountInputRef.current.value),
       Type: transType,
       UserID: currentUser.uid,
       Note: noteInputRef.current.value,
-      date: date,
+      Date: date,
+      ID: newID,
     };
     setError("");
-    console.log(transactionData);
     const res = await db
       .collection("UserTransaction")
       .doc()
@@ -88,9 +172,45 @@ export default function Expense() {
     amountInputRef.current.value = "";
     noteInputRef.current.value = "";
     setSelectedDate(new Date());
-    setLoading(false);
+    //setLoading(false);
   }
 
+  //#GetData
+
+  async function getTransactionData() {
+    try {
+      const snapshot = await db.collection("UserTransaction").get();
+      return snapshot.docs.map((doc) => doc.data());
+    } catch (e) {}
+  }
+
+  var [data, setData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchTransaction() {
+      const preSort = await getTransactionData();
+      const sorted = preSort.sort((a, b) => a.ID - b.ID);
+      setData(sorted);
+      setLoading(false);
+    }
+    fetchTransaction();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+  //#endregion
+
+  const useRowStyles = makeStyles({
+    root: {
+      "& > *": {
+        borderBottom: "unset",
+      },
+    },
+  });
+
+  //Table
   return (
     <div>
       <Sidebar />
@@ -148,18 +268,23 @@ export default function Expense() {
                   <MenuItem value="" disabled>
                     Transaction Type:
                   </MenuItem>
-                  <MenuItem value={"Vehicle"}>Vehicle (Payment/Insurance/Maintenance)</MenuItem>
+                  <MenuItem value={"Vehicle"}>
+                    Vehicle (Payment/Insurance/Maintenance)
+                  </MenuItem>
                   <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                  <MenuItem value={"Home_improvement"}>Home Improvement</MenuItem>
+                  <MenuItem value={"Home_improvement"}>
+                    Home Improvement
+                  </MenuItem>
                   <MenuItem value={"Utility"}>Utility</MenuItem>
                   <MenuItem value={"Petrol_Gas"}>Petrol/Gas</MenuItem>
                   <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
                   <MenuItem value={"Medical"}>Medical</MenuItem>
                   <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem>
-                  <MenuItem value={"Cellular_Phone_Payment"}>Cellular/Phone Payment</MenuItem>
+                  <MenuItem value={"Cellular_Phone_Payment"}>
+                    Cellular/Phone Payment
+                  </MenuItem>
                   <MenuItem value={"Education"}>Education</MenuItem>
                   <MenuItem value={"Misc"}>Misc</MenuItem>
-
                 </Select>
                 <FormHelperText className="w-100 text-justify mt-2">
                   Set the transaction type
@@ -193,6 +318,55 @@ export default function Expense() {
           <Card>
             <CardContent>
               <h2 className="text-center">Recent transaction</h2>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.ID}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <TableRow hover tabIndex={-1} key={row.ID}>
+                            {columns.map((column) => {
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
             </CardContent>
           </Card>
         </Grid>
