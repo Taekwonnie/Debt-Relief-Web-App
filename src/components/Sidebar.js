@@ -151,14 +151,14 @@ const Sidebar = (props) => {
     {
       text: "Logout ",
       icon: <ExitToAppIcon />,
-      onClick: handleLogout,
+      onClick: () => history.push("/"),
     },
   ];
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position="sticky"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
