@@ -94,6 +94,8 @@ const columns = [
 ];
 
 export default function Expense() {
+  const amountInputRef = useRef();
+  const noteInputRef = useRef();
   const [selectedDate, setSelectedDate] = React.useState(new Date()); //Set and get the date from the date picker
   const [error, setError] = useState(""); //For alerting errors to users
   const { currentUser, logout } = useAuth(); //Get the UUID of current login users
@@ -106,21 +108,23 @@ export default function Expense() {
     setPage(newPage);
   };
 
+  //Handle change row per page in table
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  //Handle the changing value for types
   const handleChangeType = (event) => {
-    //Handle the changing value for types
     setTransType(event.target.value);
   };
 
+  //Date picker componenet
   const handleDateChange = (date) => {
-    //Date picker componenet
-    //Still Debugging
     setSelectedDate(date);
   };
 
+  //Generate ID for transaction
   async function generateNewID() {
     var highestID = 0;
     const docRef = db.collection("UserTransaction");
@@ -139,9 +143,6 @@ export default function Expense() {
     });
     return highestID;
   }
-
-  const amountInputRef = useRef();
-  const noteInputRef = useRef();
 
   async function addExpenseButton() {
     if (amountInputRef.current.value == "") {
@@ -212,8 +213,8 @@ export default function Expense() {
   //Table
   return (
     <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "125vh" }}
+      className="d-flex align-items-center "
+      style={{ minHeight: "125vh", minWidth: 800 }}
     >
       <Sidebar />
       <Grid container spacing={3}>
