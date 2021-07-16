@@ -78,6 +78,7 @@ export default function Login() {
                 id="standard-required"
                 label="Email"
                 defaultValue=""
+                inputRef={emailRef}
                 className="w-100 text-center mt-2"
               />
             </div>

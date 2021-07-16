@@ -179,7 +179,7 @@ export default function Expense() {
 
   async function getTransactionData() {
     try {
-      const snapshot = await db.collection("UserTransaction").get();
+      const snapshot = await db.collection("UserTransaction").where("UserID", "==", currentUser.uid).get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
