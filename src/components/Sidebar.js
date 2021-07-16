@@ -12,8 +12,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import PieChartIcon from '@material-ui/icons/PieChart';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import PieChartIcon from "@material-ui/icons/PieChart";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { withRouter } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
@@ -93,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = (props) => {
   const { logout } = useAuth();
+  //Handle logout
   async function handleLogout() {
     try {
       await logout();
@@ -151,14 +152,14 @@ const Sidebar = (props) => {
     {
       text: "Logout ",
       icon: <ExitToAppIcon />,
-      onClick: () => history.push("/"),
+      onClick: handleLogout,
     },
   ];
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="sticky"
+        position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
