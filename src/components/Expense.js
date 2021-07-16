@@ -128,7 +128,7 @@ export default function Expense() {
   async function generateNewID() {
     var highestID = 0;
     const docRef = db.collection("UserTransaction");
-    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get();
+    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get(); //Only get transaction for the current user UID
     if (snapshot.empty) {
       return highestID;
     }
@@ -179,7 +179,10 @@ export default function Expense() {
 
   async function getTransactionData() {
     try {
-      const snapshot = await db.collection("UserTransaction").get();
+      const snapshot = await db
+        .collection("UserTransaction")
+        .where("UserID", "==", currentUser.uid)
+        .get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
