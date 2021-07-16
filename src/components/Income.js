@@ -51,23 +51,23 @@ export default function Income() {
                 <div class="col-6 mb-4 mt-2">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></input>
-                        <label class="form-check-label" for="inlineRadio1">W2</label>
+                        <label class="form-check-label" for="inlineRadio1">Hourly</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"></input>
-                        <label class="form-check-label" for="inlineRadio2">1099</label>
+                        <label class="form-check-label" for="inlineRadio2">Weekly</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"></input>
-                        <label class="form-check-label" for="inlineRadio3">Asset Income</label>
+                        <label class="form-check-label" for="inlineRadio3">Bi-Weekly</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"></input>
-                        <label class="form-check-label" for="inlineRadio3">Alimony</label>
+                        <label class="form-check-label" for="inlineRadio3">Monthly</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option5"></input>
-                        <label class="form-check-label" for="inlineRadio3">Other</label>
+                        <label class="form-check-label" for="inlineRadio3">Yearly</label>
                     </div>
                 </div>
             </div>

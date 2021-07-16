@@ -56,7 +56,6 @@ function App() {
                       path="/update-account"
                       component={UpdateAccount}
                     />
-                    <PrivateRoute exact path="/debt" component={Debt} />
                     <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
                     <PrivateRoute exact path="/testdb" component={Testdb} />
