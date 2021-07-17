@@ -99,7 +99,7 @@ const Sidebar = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setOpen(false);
   };
 
   const handleDrawerClose = () => {

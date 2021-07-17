@@ -102,7 +102,7 @@ export default function Expense() {
 
   //Date picker componenet
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setSelectedDate("09/19/1997");
   };
 
   //Generate ID for transaction
