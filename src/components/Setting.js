@@ -1,23 +1,10 @@
 import React, { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import {
-  Button,
-  Select,
-  MenuItem,
-  makeStyles,
-  FormControlLabel,
-  Card,
-  Switch,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  TextField,
-  Box,
-  FormHelperText,
-  CardContent,
+  Button, Select, MenuItem, makeStyles, FormControlLabel,
+  Card, Switch, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, FormControl, TextField, Box,
+  FormHelperText, CardContent,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

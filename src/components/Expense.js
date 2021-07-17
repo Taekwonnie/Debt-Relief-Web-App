@@ -2,42 +2,23 @@ import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import DateFnsUtils from "@date-io/date-fns";
 import Alert from "@material-ui/lab/Alert";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+/* unused
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import PropTypes from "prop-types";
+*/
 import {
-  Table,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  Card,
-  TablePagination,
-  TextField,
-  Grid,
-  TableCell,
-  TableRow,
-  Paper,
-  TableContainer,
-  TableHead,
-  TableBody,
-  Typography,
-  makeStyles,
-  Box,
-  Collapse,
-  IconButton,
-  FormHelperText,
-  CardContent,
-  Tooltip,
+  Table, Button, Select, MenuItem, FormControl,
+  Card, TablePagination, TextField, Grid, TableCell,
+  TableRow, Paper, TableContainer, TableHead, TableBody,
+  makeStyles, FormHelperText, CardContent, Tooltip,
 } from "@material-ui/core";
 import moment from "moment";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
-import { StayCurrentLandscape } from "@material-ui/icons";
+//import { StayCurrentLandscape } from "@material-ui/icons"; unused
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -98,7 +79,7 @@ export default function Expense() {
   const noteInputRef = useRef();
   const [selectedDate, setSelectedDate] = React.useState(new Date()); //Set and get the date from the date picker
   const [error, setError] = useState(""); //For alerting errors to users
-  const { currentUser, logout } = useAuth(); //Get the UUID of current login users
+  const { currentUser } = useAuth(); //Get the UUID of current login users
   const [transType, setTransType] = useState(""); //For Transaction Type
   const [loading, setLoading] = useState(false); //Set loading state
   //Table
@@ -145,7 +126,7 @@ export default function Expense() {
   }
 
   async function addExpenseButton() {
-    if (amountInputRef.current.value == "") {
+    if (amountInputRef.current.value === "") {
       setError("Sorry, please enter the amount for this transaction");
       return;
     }
@@ -155,6 +136,7 @@ export default function Expense() {
     }
     var newID = Number(await generateNewID()) + Number(1);
     var date = moment(selectedDate).format("YYYY-MM-DD");
+
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
       Type: transType,
@@ -164,10 +146,12 @@ export default function Expense() {
       ID: newID,
     };
     setError("");
+
     const res = await db
       .collection("UserTransaction")
       .doc()
       .set(transactionData);
+
     setTransType("");
     amountInputRef.current.value = "";
     noteInputRef.current.value = "";

@@ -3,22 +3,13 @@ import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
-import { Container, Row, Col } from "react-bootstrap";
-
+import { Row, Col } from "react-bootstrap";
 import {
-  makeStyles,
-  Grid,
-  Typography,
-  CardHeader,
-  Avatar,
-  Button,
-  TextField,
-  Tooltip,
-  Link as MaterialLink,
-  Card,
-  CardContent,
+  Grid, CardHeader, Avatar, Button, TextField, 
+  Tooltip, Link as MaterialLink, Card, CardContent
 } from "@material-ui/core";
 import Sidebar from "./Sidebar";
+
 export default function UpdateAccount() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -27,8 +18,8 @@ export default function UpdateAccount() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
   const { currentUser, logout } = useAuth();
+  
   async function handleLogout() {
     try {
       await logout();

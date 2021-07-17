@@ -1,23 +1,10 @@
 import React, { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import {
-  Button,
-  Select,
-  MenuItem,
-  makeStyles,
-  FormControlLabel,
-  Card,
-  Switch,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  TextField,
-  Box,
-  FormHelperText,
-  CardContent,
+  Button, CardContent, /*Select, MenuItem, makeStyles, FormControlLabel,
+  Card, Switch, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, FormControl, TextField,
+  Box, FormHelperText,*/
 } from "@material-ui/core";
 
 export default function Income() {
