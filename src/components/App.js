@@ -40,7 +40,6 @@ function App() {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => setDarkMode(!darkMode)}
             >
               Theme
             </Button>
