@@ -17,8 +17,16 @@ import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { withRouter } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import {
-  Drawer, List, ListItem, ListItemIcon, ListItemText,
-  makeStyles, AppBar, Toolbar, Typography, CssBaseline,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  CssBaseline,
 } from "@material-ui/core";
 
 const drawerWidth = 270;
@@ -99,7 +107,7 @@ const Sidebar = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
-    setOpen(false);
+    setOpen(true);
   };
 
   const handleDrawerClose = () => {

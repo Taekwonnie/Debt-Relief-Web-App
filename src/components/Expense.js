@@ -2,17 +2,35 @@ import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import DateFnsUtils from "@date-io/date-fns";
 import Alert from "@material-ui/lab/Alert";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 /* unused
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import PropTypes from "prop-types";
 */
 import {
-  Table, Button, Select, MenuItem, FormControl,
-  Card, TablePagination, TextField, Grid, TableCell,
-  TableRow, Paper, TableContainer, TableHead, TableBody,
-  makeStyles, FormHelperText, CardContent, Tooltip,
+  Table,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  Card,
+  TablePagination,
+  TextField,
+  Grid,
+  TableCell,
+  TableRow,
+  Paper,
+  TableContainer,
+  TableHead,
+  TableBody,
+  makeStyles,
+  FormHelperText,
+  CardContent,
+  Tooltip,
 } from "@material-ui/core";
 import moment from "moment";
 import { db } from "../firebase";
@@ -102,7 +120,7 @@ export default function Expense() {
 
   //Date picker componenet
   const handleDateChange = (date) => {
-    setSelectedDate("09/19/1997");
+    setSelectedDate(date);
   };
 
   //Generate ID for transaction
@@ -163,7 +181,10 @@ export default function Expense() {
 
   async function getTransactionData() {
     try {
-      const snapshot = await db.collection("UserTransaction").where("UserID", "==", currentUser.uid).get();
+      const snapshot = await db
+        .collection("UserTransaction")
+        .where("UserID", "==", currentUser.uid)
+        .get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
