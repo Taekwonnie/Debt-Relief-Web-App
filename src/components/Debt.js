@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { db } from "../firebase";
 import Alert from "@material-ui/lab/Alert";
@@ -28,6 +28,7 @@ export default function Debt() {
   const [debtAmount, setDebtAmount] = useState(""); // Debt Amount value/set
   const [debtInterest, setDebtInterest] = useState(""); //debt Interest value/set
   const [debtPayment, setDebtPayment] = useState(""); //debt Interest value/set
+  const [loading, setLoading] = useState(false); //Set loading state
 
   //Add debt button handler
   async function addDebtButton() {
@@ -74,8 +75,20 @@ export default function Debt() {
     setDebtInterest(docData.DebtInterestRate);
     setDebtPayment(docData.DebtMonthlyPayment);
   }
-  getUserFinanceData();
-  console.log(debtAmount);
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchTransaction() {
+      getUserFinanceData();
+      setLoading(false);
+    }
+    fetchTransaction();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div>
       <Sidebar />
