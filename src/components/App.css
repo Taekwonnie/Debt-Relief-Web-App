@@ -9,6 +9,12 @@
   right: 20px;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120vh;
+}
 /*webkit-scrollbar does not work with Firefox, Firefox for Android, and Internet Explorer*/
 ::-webkit-scrollbar {
   width: 10px;

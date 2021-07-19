@@ -6,11 +6,6 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-/* unused
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import PropTypes from "prop-types";
-*/
 import {
   Table,
   Button,
@@ -206,14 +201,6 @@ export default function Expense() {
     return <h1>Loading...</h1>;
   }
   //#endregion
-
-  const useRowStyles = makeStyles({
-    root: {
-      "& > *": {
-        borderBottom: "unset",
-      },
-    },
-  });
 
   //Table
   return (
