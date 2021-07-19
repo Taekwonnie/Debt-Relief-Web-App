@@ -205,7 +205,7 @@ export default function Expense() {
   //Table
   return (
     <div
-      className="d-flex align-items-center "
+      className="d-flex align-items-center"
       style={{ minHeight: "125vh", minWidth: 800 }}
     >
       <Sidebar />

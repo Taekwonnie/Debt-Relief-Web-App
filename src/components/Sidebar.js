@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -16,18 +16,22 @@ import PieChartIcon from "@material-ui/icons/PieChart";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { withRouter } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 import {
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  FormControlLabel,
+  Switch,
   makeStyles,
   AppBar,
   Toolbar,
   Typography,
   CssBaseline,
 } from "@material-ui/core";
+import { WindowScroller } from "react-virtualized";
 
 const drawerWidth = 270;
 const useStyles = makeStyles((theme) => ({
@@ -90,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  titleItemRight: {
+    float: "right",
+  },
 }));
 
 const Sidebar = (props) => {
@@ -105,7 +112,17 @@ const Sidebar = (props) => {
   const classes = useStyles();
   const theme = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [toggleState, setToggleState] = useState({
+    //Toggle handler
+    toggler: true,
+  });
 
+  const handleToggleChange = (event) => {
+    setToggleState({
+      ...toggleState,
+      [event.target.name]: event.target.checked,
+    });
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -113,6 +130,19 @@ const Sidebar = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  function darkMode() {
+    var aValue = localStorage.getItem("theme");
+    if (aValue == "true") {
+      console.log("1");
+      localStorage.setItem("theme", false);
+    } else if (aValue == "false") {
+      console.log("2");
+      localStorage.setItem("theme", true);
+    }
+    window.location.reload();
+  }
+
   const itemListMain = [
     {
       text: "Dashboard ",
@@ -149,6 +179,11 @@ const Sidebar = (props) => {
       text: "Settings ",
       icon: <SettingsIcon />,
       onClick: () => history.push("/setting"),
+    },
+    {
+      text: "Dark | Light Toggle",
+      icon: <Brightness4Icon />,
+      onClick: darkMode,
     },
     {
       text: "Logout ",

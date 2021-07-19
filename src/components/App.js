@@ -18,11 +18,18 @@ import Testdb from "./Testdb";
 // for dark/light theme
 import { Button, Paper } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   // dark/light theme
   const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    console.log(localTheme);
+    setDarkMode(JSON.parse(localTheme));
+    console.log(darkMode);
+  }, []);
+
   const theme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
@@ -60,12 +67,13 @@ function App() {
                     <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
                     <PrivateRoute exact path="/testdb" component={Testdb} />
-                    <div className="center">
-                      <PrivateRoute exact path="/expense" component={Expense} />
-                    </div>
+
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
+                    <div className="center">
+                      <PrivateRoute exact path="/expense" component={Expense} />
+                    </div>
                   </Switch>
                 </AuthProvider>
               </Router>
