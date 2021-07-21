@@ -34,13 +34,19 @@ export default function UpdateAccount() {
     } catch {}
   }
 
+  // check if fields are correctly filled out
+  function fieldCheck() {
+  return ((emailRef.current.value !== currentUser.email) || (passwordRef.current.value === "")
+      || (passwordConfirmRef.current.value === "") || (passwordRef.current.value !== passwordConfirmRef.current.value))
+ }
+
   //Function for the sign up button
   function handleSubmit(e) {
     e.preventDefault();
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      //Check to see if both password are the same
-      return setError("Password do not match");
-    }
+
+    // function call. If true, return setError message.
+    if (fieldCheck()) return setError("Please correctly fill out all fields.");
+    
     const promises = [];
     setLoading(true);
     setError("");
