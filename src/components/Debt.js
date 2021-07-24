@@ -55,10 +55,7 @@ export default function Debt() {
     }
     try {
       const docRef = db.collection("UserFinance");
-      await db
-        .collection("UserFinance")
-        .doc(currentUser.uid)
-        .set(UserDebtFinanceData, { merge: true });
+      await db.collection("UserFinance").doc(currentUser.uid).set(UserDebtFinanceData, { merge: true });
     } catch (error) {
       console.log(error);
     }

@@ -23,15 +23,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  FormControlLabel,
-  Switch,
+  //FormControlLabel,
+  //Switch,
   makeStyles,
   AppBar,
   Toolbar,
   Typography,
   CssBaseline,
 } from "@material-ui/core";
-import { WindowScroller } from "react-virtualized";
+//import { WindowScroller } from "react-virtualized";
 
 const drawerWidth = 270;
 const useStyles = makeStyles((theme) => ({
@@ -133,10 +133,10 @@ const Sidebar = (props) => {
 
   function darkMode() {
     var aValue = localStorage.getItem("theme");
-    if (aValue == "true") {
+    if (aValue === "true") {
       console.log("1");
       localStorage.setItem("theme", false);
-    } else if (aValue == "false") {
+    } else if (aValue === "false") {
       console.log("2");
       localStorage.setItem("theme", true);
     }
