@@ -160,10 +160,7 @@ export default function Expense() {
     };
     setError("");
 
-    const res = await db
-      .collection("UserTransaction")
-      .doc()
-      .set(transactionData);
+    const res = await db.collection("UserTransaction").doc().set(transactionData);
 
     setTransType("");
     amountInputRef.current.value = "";
@@ -176,10 +173,7 @@ export default function Expense() {
 
   async function getTransactionData() {
     try {
-      const snapshot = await db
-        .collection("UserTransaction")
-        .where("UserID", "==", currentUser.uid)
-        .get();
+      const snapshot = await db.collection("UserTransaction").where("UserID", "==", currentUser.uid).get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
