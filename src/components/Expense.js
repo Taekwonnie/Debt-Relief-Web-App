@@ -257,30 +257,25 @@ export default function Expense() {
                   <MenuItem value="" disabled>
                     Transaction Type:
                   </MenuItem>
-                  <MenuItem value={"Vehicle"}>
-                    Vehicle (Payment/Insurance/Maintenance)
-                  </MenuItem>
-                  <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                  <MenuItem value={"Home_improvement"}>
-                    Home Improvement
-                  </MenuItem>
-                  <MenuItem value={"Utility"}>Utility</MenuItem>
-                  <MenuItem value={"Petrol_Gas"}>Petrol/Gas</MenuItem>
-                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                  <MenuItem value={"Medical"}>Medical</MenuItem>
-                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem>
-                  <MenuItem value={"Cellular_Phone_Payment"}>
-                    Cellular/Phone Payment
-                  </MenuItem>
-                  <MenuItem value={"Education"}>Education</MenuItem>
-                  <MenuItem value={"Misc"}>Misc</MenuItem>
+                  <MenuItem value={"Vehicle"}>Vehicle (Payment/Insurance/Maintenance)</MenuItem>
+                  <MenuItem value={"Groceries"}>Groceries</MenuItem> Groceries expense 
+                  <MenuItem value={"Home_improvement"}>Home Improvement</MenuItem> // home Improvement expense 
+                  <MenuItem value={"Utility"}>Utility</MenuItem> // utility expense ex: internet
+                  <MenuItem value={"Fuel"}>Petrol/Gas</MenuItem> // fuel payment expense 
+                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem> // mics entertainment expense 
+                  <MenuItem value={"Medical"}>Medical</MenuItem> // medical expense 
+                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem> // monthly mortgage payment expense 
+                  <MenuItem value={"Phone_Payment"}>Cellular/Phone Payment</MenuItem> // mobile Cellular Payment expense
+                  <MenuItem value={"Edu"}>Education</MenuItem> // education expense
+                  <MenuItem value={"Misc"}>Misc</MenuItem> // Mics expense / transactions
                 </Select>
+
                 <FormHelperText className="w-100 text-justify mt-2">
-                  Set the transaction type
+                  ***Choose the transaction type***
                 </FormHelperText>
 
                 <TextField
-                  placeholder="Please enter any note for the transaction."
+                  placeholder="Add Note for Transaction."
                   multiline
                   rows={2}
                   variant="outlined"

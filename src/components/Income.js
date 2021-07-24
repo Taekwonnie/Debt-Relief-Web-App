@@ -74,7 +74,10 @@ export default function Income() {
                     </div>
                 </div>
             </div>
-                        
+
+
+            
+
             <Button
             color="primary"
             size="large"
