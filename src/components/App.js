@@ -67,7 +67,6 @@ function App() {
                     <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
                     <PrivateRoute exact path="/testdb" component={Testdb} />
-
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />

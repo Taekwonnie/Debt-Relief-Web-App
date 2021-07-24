@@ -20,14 +20,14 @@ var formatter = new Intl.NumberFormat("en-US", {
 
 export default function Debt() {
   //Input field handler
-  const amountInputRef = useRef();
-  const interestRateRef = useRef();
-  const monthlyPaymentRef = useRef();
+  const amountInputRef = useRef(); //Input field for amount
+  const interestRateRef = useRef(); //Input field for interest rate
+  const monthlyPaymentRef = useRef(); //Input field for monthly payment
   const { currentUser } = useAuth(); //Get the UUID of current login users
   const [error, setError] = useState(""); //For alerting errors to users
-  const [debtAmount, setDebtAmount] = useState(""); // Debt Amount value/set
-  const [debtInterest, setDebtInterest] = useState(""); //debt Interest value/set
-  const [debtPayment, setDebtPayment] = useState(""); //debt Interest value/set
+  const [debtAmount, setDebtAmount] = useState(""); //Debt Amount value/set
+  const [debtInterest, setDebtInterest] = useState(""); //Debt Interest value/set
+  const [debtPayment, setDebtPayment] = useState(""); //Debt Interest value/set
   const [loading, setLoading] = useState(false); //Set loading state
 
   //Add debt button handler
@@ -38,14 +38,17 @@ export default function Debt() {
       DebtInterestRate: interestRateRef.current.value,
       DebtMonthlyPayment: monthlyPaymentRef.current.value,
     };
+
     if (amountInputRef.current.value === "") {
       setError("Sorry, please enter the amount for this debt!");
       return;
     }
+
     if (interestRateRef.current.value === "") {
       setError("Sorry, please enter the interest rate for this debt!");
       return;
     }
+
     if (monthlyPaymentRef.current.value === "") {
       setError("Sorry, please enter the monthly payment for this debt!");
       return;
