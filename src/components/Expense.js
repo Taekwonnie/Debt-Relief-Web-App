@@ -6,9 +6,6 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import PropTypes from "prop-types";
 import {
   Table,
   Button,
@@ -25,11 +22,7 @@ import {
   TableContainer,
   TableHead,
   TableBody,
-  Typography,
   makeStyles,
-  Box,
-  Collapse,
-  IconButton,
   FormHelperText,
   CardContent,
   Tooltip,
@@ -37,7 +30,8 @@ import {
 import moment from "moment";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
-import { StayCurrentLandscape } from "@material-ui/icons";
+//import { StayCurrentLandscape } from "@material-ui/icons"; unused
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -94,9 +88,11 @@ const columns = [
 ];
 
 export default function Expense() {
+  const amountInputRef = useRef();
+  const noteInputRef = useRef();
   const [selectedDate, setSelectedDate] = React.useState(new Date()); //Set and get the date from the date picker
   const [error, setError] = useState(""); //For alerting errors to users
-  const { currentUser, logout } = useAuth(); //Get the UUID of current login users
+  const { currentUser } = useAuth(); //Get the UUID of current login users
   const [transType, setTransType] = useState(""); //For Transaction Type
   const [loading, setLoading] = useState(false); //Set loading state
   //Table
@@ -106,25 +102,27 @@ export default function Expense() {
     setPage(newPage);
   };
 
+  //Handle change row per page in table
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  //Handle the changing value for types
   const handleChangeType = (event) => {
-    //Handle the changing value for types
     setTransType(event.target.value);
   };
 
+  //Date picker componenet
   const handleDateChange = (date) => {
-    //Date picker componenet
-    //Still Debugging
     setSelectedDate(date);
   };
 
+  //Generate ID for transaction
   async function generateNewID() {
     var highestID = 0;
     const docRef = db.collection("UserTransaction");
-    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get();
+    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get(); //Only get transaction for the current user UID
     if (snapshot.empty) {
       return highestID;
     }
@@ -140,11 +138,8 @@ export default function Expense() {
     return highestID;
   }
 
-  const amountInputRef = useRef();
-  const noteInputRef = useRef();
-
   async function addExpenseButton() {
-    if (amountInputRef.current.value == "") {
+    if (amountInputRef.current.value === "") {
       setError("Sorry, please enter the amount for this transaction");
       return;
     }
@@ -154,6 +149,7 @@ export default function Expense() {
     }
     var newID = Number(await generateNewID()) + Number(1);
     var date = moment(selectedDate).format("YYYY-MM-DD");
+
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
       Type: transType,
@@ -163,10 +159,9 @@ export default function Expense() {
       ID: newID,
     };
     setError("");
-    const res = await db
-      .collection("UserTransaction")
-      .doc()
-      .set(transactionData);
+
+    const res = await db.collection("UserTransaction").doc().set(transactionData);
+
     setTransType("");
     amountInputRef.current.value = "";
     noteInputRef.current.value = "";
@@ -178,7 +173,7 @@ export default function Expense() {
 
   async function getTransactionData() {
     try {
-      const snapshot = await db.collection("UserTransaction").get();
+      const snapshot = await db.collection("UserTransaction").where("UserID", "==", currentUser.uid).get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
@@ -189,7 +184,7 @@ export default function Expense() {
     setLoading(true);
     async function fetchTransaction() {
       const preSort = await getTransactionData();
-      const sorted = preSort.sort((a, b) => a.ID - b.ID);
+      const sorted = preSort.sort((first, second) => first.ID - second.ID);
       setData(sorted);
       setLoading(false);
     }
@@ -201,19 +196,11 @@ export default function Expense() {
   }
   //#endregion
 
-  const useRowStyles = makeStyles({
-    root: {
-      "& > *": {
-        borderBottom: "unset",
-      },
-    },
-  });
-
   //Table
   return (
     <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "125vh" }}
+      className="d-flex align-items-center"
+      style={{ minHeight: "125vh", minWidth: 800 }}
     >
       <Sidebar />
       <Grid container spacing={3}>
@@ -270,30 +257,25 @@ export default function Expense() {
                   <MenuItem value="" disabled>
                     Transaction Type:
                   </MenuItem>
-                  <MenuItem value={"Vehicle"}>
-                    Vehicle (Payment/Insurance/Maintenance)
-                  </MenuItem>
-                  <MenuItem value={"Groceries"}>Groceries</MenuItem>
-                  <MenuItem value={"Home_improvement"}>
-                    Home Improvement
-                  </MenuItem>
-                  <MenuItem value={"Utility"}>Utility</MenuItem>
-                  <MenuItem value={"Petrol_Gas"}>Petrol/Gas</MenuItem>
-                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                  <MenuItem value={"Medical"}>Medical</MenuItem>
-                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem>
-                  <MenuItem value={"Cellular_Phone_Payment"}>
-                    Cellular/Phone Payment
-                  </MenuItem>
-                  <MenuItem value={"Education"}>Education</MenuItem>
-                  <MenuItem value={"Misc"}>Misc</MenuItem>
+                  <MenuItem value={"Vehicle"}>Vehicle (Payment/Insurance/Maintenance)</MenuItem>
+                  <MenuItem value={"Groceries"}>Groceries</MenuItem> Groceries expense 
+                  <MenuItem value={"Home_improvement"}>Home Improvement</MenuItem> // home Improvement expense 
+                  <MenuItem value={"Utility"}>Utility</MenuItem> // utility expense ex: internet
+                  <MenuItem value={"Fuel"}>Petrol/Gas</MenuItem> // fuel payment expense 
+                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem> // mics entertainment expense 
+                  <MenuItem value={"Medical"}>Medical</MenuItem> // medical expense 
+                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem> // monthly mortgage payment expense 
+                  <MenuItem value={"Phone_Payment"}>Cellular/Phone Payment</MenuItem> // mobile Cellular Payment expense
+                  <MenuItem value={"Edu"}>Education</MenuItem> // education expense
+                  <MenuItem value={"Misc"}>Misc</MenuItem> // Mics expense / transactions
                 </Select>
+
                 <FormHelperText className="w-100 text-justify mt-2">
-                  Set the transaction type
+                  ***Choose the transaction type***
                 </FormHelperText>
 
                 <TextField
-                  placeholder="Please enter any note for the transaction."
+                  placeholder="Add Note for Transaction."
                   multiline
                   rows={2}
                   variant="outlined"

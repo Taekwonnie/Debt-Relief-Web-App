@@ -38,11 +38,13 @@ export default function Setting() {
   const handleClickOpenImport = () => {
     setOpenImport(true);
   };
+
   const handleCloseImport = () => {
     setOpenImport(false);
   };
 
   const importTextRef = useRef();
+
   const handleCloseImportSave = () => {
     var data = JSON.parse(importTextRef.current.value);
     console.log(importTextRef.current.value);
@@ -54,6 +56,7 @@ export default function Setting() {
     }
     window.location.reload();
   };
+
   const handleClickOpenExport = () => {
     setOpenExport(true);
   };
@@ -97,7 +100,6 @@ export default function Setting() {
 
   const handleChangeCurrency = (event) => {
     //For changes
-    console.log(event.target.value);
     setCurrency(event.target.value);
   };
   const handleChangeNotify = (event) => {
@@ -108,9 +110,6 @@ export default function Setting() {
 
   //Handle save setting button
   async function saveButton() {
-    console.log(`Currency: ${currency}`);
-    console.log(`Savedcurrent: ${savedCurrencyVal}`);
-
     if (!currency) {
       localStorage.setItem("currency", savedCurrencyVal);
       localStorage.setItem("notify", state.notify);
@@ -118,7 +117,6 @@ export default function Setting() {
       localStorage.setItem("currency", currency);
       localStorage.setItem("notify", state.notify);
     }
-
     window.location.reload();
   }
 

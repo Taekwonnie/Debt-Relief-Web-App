@@ -3,11 +3,7 @@ import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory, Link } from "react-router-dom";
 import {
-  Button,
-  TextField,
-  Link as MaterialLink,
-  Card,
-  CardContent,
+  Button, TextField, Link as MaterialLink, Card, CardContent,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
