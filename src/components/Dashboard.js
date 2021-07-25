@@ -5,6 +5,7 @@ import { Button, Card, CardContent, Grid, makeStyles, Typography} from "@materia
 import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Row, Col, Container } from "react-bootstrap";
+import DashboardChartType from './DashboardChart'
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -30,7 +31,9 @@ export default function Dashboard() {
 
   return (
     <>
+    
     <Sidebar />
+
     <Grid container
       spacing={10}
     >
@@ -51,6 +54,8 @@ export default function Dashboard() {
       </Grid>
       </Col>
       </Row>
+
+      <DashboardChartType />
 
       <Col>
       <Grid item xs={12} sm={12} md={12}>
