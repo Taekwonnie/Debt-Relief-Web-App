@@ -36,6 +36,9 @@ export default function Signup() {
       //if fail then print the message
       console.log(error.code);
       switch (error.code) {
+        case "auth/invalid-email":
+          setError("Sorry please enter a valid email.");
+          break;
         case "auth/email-already-in-use":
           setError(
             "Sorry, the email address is already in use by another account."
@@ -69,6 +72,7 @@ export default function Signup() {
                 required
                 id="standard-required"
                 label="Email"
+                type="Email"
                 defaultValue=""
                 inputRef={emailRef}
                 className="w-100 text-center mt-3"

@@ -245,7 +245,9 @@ export default function Expense() {
                     />
                   </MuiPickersUtilsProvider>
                 </div>
-
+                <FormHelperText className="w-100 text-justify mt-2">
+                  ***Choose the transaction type***
+                </FormHelperText>
                 <Select
                   required
                   labelId="demo-simple-select-filled-label"
@@ -289,10 +291,6 @@ export default function Expense() {
                   <MenuItem value={"Misc"}>Misc</MenuItem> // Mics expense /
                   transactions
                 </Select>
-
-                <FormHelperText className="w-100 text-justify mt-2">
-                  ***Choose the transaction type***
-                </FormHelperText>
 
                 <TextField
                   placeholder="Add Note for Transaction."

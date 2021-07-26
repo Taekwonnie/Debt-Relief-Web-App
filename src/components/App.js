@@ -63,12 +63,12 @@ function App() {
                       component={UpdateAccount}
                     />
                     <PrivateRoute exact path="/debt" component={Debt} />
-                    <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
                     <div className="center">
+                      <PrivateRoute exact path="/income" component={Income} />
                       <PrivateRoute exact path="/expense" component={Expense} />
                     </div>
                   </Switch>

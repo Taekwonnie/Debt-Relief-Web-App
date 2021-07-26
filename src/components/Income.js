@@ -124,11 +124,11 @@ export default function Income() {
 
   async function addIncomeButton() {
     if (amountInputRef.current.value === "") {
-      setError("Sorry, please enter the amount for this transaction");
+      setError("Sorry, please enter the amount for this income");
       return;
     }
     if (!incomeType) {
-      setError("Sorry, please pick the type for this transaction");
+      setError("Sorry, please pick the type for this income");
       return;
     }
     var newID = Number(await generateNewID()) + Number(1);
@@ -192,6 +192,9 @@ export default function Income() {
                     className="w-100 text-center mt-2 mb-3"
                   />
                 </Tooltip>
+                <FormHelperText className="w-100 text-justify mt-2">
+                  ***Choose the income type***
+                </FormHelperText>
                 <Select
                   required
                   labelId="demo-simple-select-filled-label"
