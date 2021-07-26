@@ -91,7 +91,7 @@ export default function UpdateAccount() {
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Card>
+            <Card style={{ width: "500px", height: "200px" }}>
               <CardHeader
                 className="text-center mb-4"
                 avatar={<Avatar aria-label="profile-pic"></Avatar>}
@@ -106,8 +106,8 @@ export default function UpdateAccount() {
             </Card>
           </Grid>
           <Grid item xs={24} sm={24}>
-            <Card style={{ width: "280px", height: "375px" }}>
-              <CardHeader title="Update Account" />
+            <Card style={{ width: "500px", height: "420px" }}>
+              <CardHeader className="text-center mb-4" title="Update Account" />
               <CardContent>
                 {error && <Alert severity="error">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
@@ -174,6 +174,17 @@ export default function UpdateAccount() {
                     className="w-100 text-center mt-4"
                   >
                     Update
+                  </Button>
+                  <Button
+                    color="default"
+                    size="large"
+                    variant="contained"
+                    disabled={loading}
+                    type="submit"
+                    className="w-100 text-center mt-4"
+                    onClick={handleLogout}
+                  >
+                    Log Out
                   </Button>
                 </Form>
               </CardContent>
