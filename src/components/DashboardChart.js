@@ -1,7 +1,8 @@
-import React from 'react'
-import { Bar, Chart } from 'react-chartjs-2'
+import React from 'react';
+import { Bar, Chart } from 'react-chartjs-2';
 
-// Enable or Disable tooltips Chart.defaults.plugins.tooltip = false
+//disable tooltips
+//Chart.defaults.plugins.tooltip = false
 
 const DashboardChartType = () => {
     return <div>

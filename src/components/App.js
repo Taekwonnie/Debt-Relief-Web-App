@@ -12,6 +12,7 @@ import ForgotPassword from "./ForgotPassword";
 import UpdateAccount from "./UpdateAccount";
 import Setting from "./Setting";
 import Expense from "./Expense";
+import Analytics from "./Analytics";
 import "./App.css";
 import { classes } from "istanbul-lib-coverage";
 import Testdb from "./Testdb";
@@ -66,6 +67,7 @@ function App() {
                     <PrivateRoute exact path="/debt" component={Debt} />
                     <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
+                    <PrivateRoute exact path="/analytics" component={Analytics} />
                     <PrivateRoute exact path="/testdb" component={Testdb} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />

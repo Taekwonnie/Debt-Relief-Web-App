@@ -5,7 +5,7 @@ import { Card, CardContent, Grid, makeStyles, Typography} from "@material-ui/cor
 //import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Row, Col } from "react-bootstrap";
-import DashboardChartType from './DashboardChart'
+import DashboardChartType from "./DashboardChart";
 
 const useStyles = makeStyles({
   gridContainer: {

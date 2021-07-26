@@ -167,6 +167,7 @@ const Sidebar = (props) => {
     {
       text: "Analytics ",
       icon: <PieChartIcon />,
+      onClick: () => history.push("/analytics"),
     },
   ];
   const itemListSecondary = [
