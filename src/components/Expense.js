@@ -88,20 +88,20 @@ const columns = [
 ];
 
 export default function Expense() {
-  const amountInputRef = useRef();
-  const noteInputRef = useRef();
   const [selectedDate, setSelectedDate] = React.useState(new Date()); //Set and get the date from the date picker
   const [error, setError] = useState(""); //For alerting errors to users
   const { currentUser } = useAuth(); //Get the UUID of current login users
+  const amountInputRef = useRef();
+  const noteInputRef = useRef();
   const [transType, setTransType] = useState(""); //For Transaction Type
   const [loading, setLoading] = useState(false); //Set loading state
+
   //Table
   const [page, setPage] = useState(0); //Table Page handle
   const [rowsPerPage, setRowsPerPage] = useState(5); //Table page properties
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   //Handle change row per page in table
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -159,9 +159,10 @@ export default function Expense() {
       ID: newID,
     };
     setError("");
-
-    const res = await db.collection("UserTransaction").doc().set(transactionData);
-
+    const res = await db
+      .collection("UserTransaction")
+      .doc()
+      .set(transactionData);
     setTransType("");
     amountInputRef.current.value = "";
     noteInputRef.current.value = "";
@@ -170,16 +171,19 @@ export default function Expense() {
   }
 
   //#GetData
-
   async function getTransactionData() {
     try {
-      const snapshot = await db.collection("UserTransaction").where("UserID", "==", currentUser.uid).get();
+      const snapshot = await db
+        .collection("UserTransaction")
+        .where("UserID", "==", currentUser.uid)
+        .get();
       return snapshot.docs.map((doc) => doc.data());
     } catch (e) {}
   }
 
   var [data, setData] = useState([]);
 
+  //Sort and fetch transaction
   useEffect(() => {
     setLoading(true);
     async function fetchTransaction() {
@@ -257,17 +261,33 @@ export default function Expense() {
                   <MenuItem value="" disabled>
                     Transaction Type:
                   </MenuItem>
-                  <MenuItem value={"Vehicle"}>Vehicle (Payment/Insurance/Maintenance)</MenuItem>
-                  <MenuItem value={"Groceries"}>Groceries</MenuItem> Groceries expense 
-                  <MenuItem value={"Home_improvement"}>Home Improvement</MenuItem> // home Improvement expense 
-                  <MenuItem value={"Utility"}>Utility</MenuItem> // utility expense ex: internet
-                  <MenuItem value={"Fuel"}>Petrol/Gas</MenuItem> // fuel payment expense 
-                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem> // mics entertainment expense 
-                  <MenuItem value={"Medical"}>Medical</MenuItem> // medical expense 
-                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem> // monthly mortgage payment expense 
-                  <MenuItem value={"Phone_Payment"}>Cellular/Phone Payment</MenuItem> // mobile Cellular Payment expense
-                  <MenuItem value={"Edu"}>Education</MenuItem> // education expense
-                  <MenuItem value={"Misc"}>Misc</MenuItem> // Mics expense / transactions
+                  <MenuItem value={"Vehicle"}>
+                    Vehicle (Payment/Insurance/Maintenance)
+                  </MenuItem>
+                  <MenuItem value={"Groceries"}>Groceries</MenuItem> Groceries
+                  expense
+                  <MenuItem value={"Home_improvement"}>
+                    Home Improvement
+                  </MenuItem>{" "}
+                  // home Improvement expense
+                  <MenuItem value={"Utility"}>Utility</MenuItem> // utility
+                  expense ex: internet
+                  <MenuItem value={"Fuel"}>Petrol/Gas</MenuItem> // fuel payment
+                  expense
+                  <MenuItem value={"Entertainment"}>Entertainment</MenuItem> //
+                  mics entertainment expense
+                  <MenuItem value={"Medical"}>Medical</MenuItem> // medical
+                  expense
+                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem> //
+                  monthly mortgage payment expense
+                  <MenuItem value={"Phone_Payment"}>
+                    Cellular/Phone Payment
+                  </MenuItem>{" "}
+                  // mobile Cellular Payment expense
+                  <MenuItem value={"Edu"}>Education</MenuItem> // education
+                  expense
+                  <MenuItem value={"Misc"}>Misc</MenuItem> // Mics expense /
+                  transactions
                 </Select>
 
                 <FormHelperText className="w-100 text-justify mt-2">

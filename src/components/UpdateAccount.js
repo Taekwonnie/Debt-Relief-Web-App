@@ -13,9 +13,16 @@ import {
   Tooltip,
   Link as MaterialLink,
   Card,
+  makeStyles,
   CardContent,
 } from "@material-ui/core";
 import Sidebar from "./Sidebar";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 
 export default function UpdateAccount() {
   const emailRef = useRef();
@@ -36,9 +43,13 @@ export default function UpdateAccount() {
 
   // check if fields are correctly filled out
   function fieldCheck() {
-  return ((emailRef.current.value !== currentUser.email) || (passwordRef.current.value === "")
-      || (passwordConfirmRef.current.value === "") || (passwordRef.current.value !== passwordConfirmRef.current.value))
- }
+    return (
+      emailRef.current.value !== currentUser.email ||
+      passwordRef.current.value === "" ||
+      passwordConfirmRef.current.value === "" ||
+      passwordRef.current.value !== passwordConfirmRef.current.value
+    );
+  }
 
   //Function for the sign up button
   function handleSubmit(e) {
@@ -46,7 +57,7 @@ export default function UpdateAccount() {
 
     // function call. If true, return setError message.
     if (fieldCheck()) return setError("Please correctly fill out all fields.");
-    
+
     const promises = [];
     setLoading(true);
     setError("");
@@ -73,133 +84,103 @@ export default function UpdateAccount() {
       });
   }
 
+  const classes = useStyles();
   return (
     <>
       <Sidebar />
-      <Grid container spacing={10}>
-        <Row>
-          <Col>
-            <Grid item xs={12} sm={12} md={12}>
-              <Card style={{ width: "100%", height: "375px" }}>
-                <CardHeader
-                  avatar={<Avatar aria-label="profile-pic"></Avatar>}
-                  titleTypographyProps={{ variant: "h5" }}
-                  title="Account Information"
-                />
-                <CardContent>
-                  <div className="w-100 text-center mb-4">
-                    <strong>Email: </strong> {currentUser.email}
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Card>
+              <CardHeader
+                className="text-center mb-4"
+                avatar={<Avatar aria-label="profile-pic"></Avatar>}
+                titleTypographyProps={{ variant: "h5" }}
+                title="Account Information"
+              />
+              <CardContent>
+                <div className="w-100 text-center mb-4">
+                  <strong>Email: </strong> {currentUser.email}
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={24} sm={24}>
+            <Card style={{ width: "280px", height: "375px" }}>
+              <CardHeader title="Update Account" />
+              <CardContent>
+                {error && <Alert severity="error">{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <TextField
+                      required
+                      id="standard-required"
+                      label="Email"
+                      defaultValue=""
+                      inputRef={emailRef}
+                      className="w-100 text-center mt-2"
+                    />
                   </div>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Col>
 
-          <Col>
-            <Grid item xs={12} sm={12} md={12}>
-              <Card style={{ width: "280px", height: "375px" }}>
-                <CardHeader title="Update Account" />
-
-                <CardContent>
-                  {error && <Alert severity="error">{error}</Alert>}
-                  <Form onSubmit={handleSubmit}>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Tooltip title="Leave blank if you don't want to change">
                       <TextField
-                        required
                         id="standard-required"
-                        label="Email"
+                        label="Password"
                         defaultValue=""
-                        inputRef={emailRef}
+                        type="password"
+                        inputRef={passwordRef}
                         className="w-100 text-center mt-2"
                       />
-                    </div>
+                    </Tooltip>
+                  </div>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Tooltip title="Leave blank if you don't want to change">
-                        <TextField
-                          id="standard-required"
-                          label="Password"
-                          defaultValue=""
-                          type="password"
-                          inputRef={passwordRef}
-                          className="w-100 text-center mt-2"
-                        />
-                      </Tooltip>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Tooltip title="Leave blank if you don't want to change">
-                        <TextField
-                          id="standard-required"
-                          label="Confirm Password"
-                          defaultValue=""
-                          type="password"
-                          inputRef={passwordConfirmRef}
-                          className="w-100 text-center mt-2"
-                        />
-                      </Tooltip>
-                    </div>
-                    <Button
-                      color="primary"
-                      size="large"
-                      variant="contained"
-                      disabled={loading}
-                      type="submit"
-                      className="w-100 text-center mt-4"
-                    >
-                      Update
-                    </Button>
-                  </Form>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Col>
-
-          <Col>
-            <Grid item xs={12} sm={12} md={12} spacing={10}>
-              <Card style={{ width: "100%", height: "150px" }}>
-                <CardHeader title="Logout of Your Account" />
-                <CardContent>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Tooltip title="Leave blank if you don't want to change">
+                      <TextField
+                        id="standard-required"
+                        label="Confirm Password"
+                        defaultValue=""
+                        type="password"
+                        inputRef={passwordConfirmRef}
+                        className="w-100 text-center mt-2"
+                      />
+                    </Tooltip>
+                  </div>
                   <Button
-                    color="default"
+                    color="primary"
                     size="large"
                     variant="contained"
+                    disabled={loading}
                     type="submit"
-                    className="w-100 text-center mt-2"
-                    onClick={handleLogout}
+                    className="w-100 text-center mt-4"
                   >
-                    Log Out
+                    Update
                   </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <div className="w-100 text-center mt-2">
-              <MaterialLink component={Link} to="/">
-                Back to dashboard
-              </MaterialLink>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
+                </Form>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </div>
     </>
   );
 }
