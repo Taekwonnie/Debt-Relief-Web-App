@@ -15,7 +15,6 @@ import Expense from "./Expense";
 import Analytics from "./Analytics";
 import "./App.css";
 import { classes } from "istanbul-lib-coverage";
-import Testdb from "./Testdb";
 // for dark/light theme
 import { Button, Paper } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
@@ -65,7 +64,6 @@ function App() {
                       component={UpdateAccount}
                     />
                     <PrivateRoute exact path="/debt" component={Debt} />
-                    <PrivateRoute exact path="/income" component={Income} />
                     <PrivateRoute exact path="/setting" component={Setting} />
                     <PrivateRoute exact path="/analytics" component={Analytics} />
                     <PrivateRoute exact path="/testdb" component={Testdb} />
@@ -73,6 +71,7 @@ function App() {
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
                     <div className="center">
+                      <PrivateRoute exact path="/income" component={Income} />
                       <PrivateRoute exact path="/expense" component={Expense} />
                     </div>
                   </Switch>
