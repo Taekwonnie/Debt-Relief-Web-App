@@ -131,16 +131,26 @@ export default function Income() {
       setError("Sorry, please pick the type for this income");
       return;
     }
-    var newID = Number(await generateNewID()) + Number(1);
-    var date = moment(selectedDate).format("YYYY-MM-DD");
+    
+    class transaction {
+      constructor(newID, date) {
+        this.newID = newID;
+        this.date = date;
+      }
+      get newID() {return this.newID;}
+      get newDate() {return this.date;}
+    }
+
+    let transactionObject = new transaction(Number(await generateNewID()) + Number(1), moment(selectedDate).format("YYYY-MM-DD"));
 
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
       Type: incomeType,
       UserID: currentUser.uid,
-      Date: date,
-      ID: newID,
+      Date: transactionObject.date,
+      ID: transactionObject.newID,
     };
+
     setError("");
     const res = await db.collection("UserIncome").doc().set(transactionData);
     setIncomeType("");
