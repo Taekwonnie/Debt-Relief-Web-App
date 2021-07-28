@@ -131,17 +131,24 @@ export default function Income() {
       setError("Sorry, please pick the type for this income");
       return;
     }
-    
+
     class transaction {
       constructor(newID, date) {
         this.newID = newID;
         this.date = date;
       }
-      get newID() {return this.newID;}
-      get newDate() {return this.date;}
+      get newID() {
+        return this.newID;
+      }
+      get newDate() {
+        return this.date;
+      }
     }
 
-    let transactionObject = new transaction(Number(await generateNewID()) + Number(1), moment(selectedDate).format("YYYY-MM-DD"));
+    let transactionObject = new transaction(
+      Number(await generateNewID()) + Number(1),
+      moment(selectedDate).format("YYYY-MM-DD")
+    );
 
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
@@ -178,7 +185,10 @@ export default function Income() {
   }
 
   return (
-    <div>
+    <div
+      className="d-flex align-items-center"
+      style={{ minHeight: "125vh", minWidth: 800 }}
+    >
       <Sidebar />
       <Grid container spacing={3}>
         <Grid item sx={24} sm={12}>

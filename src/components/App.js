@@ -65,13 +65,18 @@ function App() {
                     />
                     <PrivateRoute exact path="/debt" component={Debt} />
                     <PrivateRoute exact path="/setting" component={Setting} />
-                    <PrivateRoute exact path="/analytics" component={Analytics} />
+
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
                     <div className="center">
                       <PrivateRoute exact path="/income" component={Income} />
                       <PrivateRoute exact path="/expense" component={Expense} />
+                      <PrivateRoute
+                        exact
+                        path="/analytics"
+                        component={Analytics}
+                      />
                     </div>
                   </Switch>
                 </AuthProvider>
