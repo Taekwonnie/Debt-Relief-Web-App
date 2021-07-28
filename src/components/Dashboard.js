@@ -11,7 +11,7 @@ import {
 //import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Row, Col } from "react-bootstrap";
-import DashboardChartType from "./DashboardChart";
+import BarChart from "./DashboardChart";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -28,7 +28,7 @@ export default function Dashboard() {
   return (
     <>
       <Sidebar />
-      <Grid container spacing={3}>
+      <Grid container spacing={10}>
         <Grid item xs={24} sm={12} md={12}>
           <Card>
             <CardContent>
@@ -44,7 +44,7 @@ export default function Dashboard() {
         <Grid item xs={24} sm={12} md={12}>
           <Card>
             <CardContent>
-              <DashboardChartType />
+              <BarChart />
             </CardContent>
           </Card>
         </Grid>

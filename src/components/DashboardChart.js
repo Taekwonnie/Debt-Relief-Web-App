@@ -4,7 +4,7 @@ import { Bar, Chart } from 'react-chartjs-2';
 //disable tooltips
 //Chart.defaults.plugins.tooltip = false
 
-const DashboardChartType = () => {
+const BarChart = () => {
     return <div>
         <Bar
             data={{
@@ -69,4 +69,4 @@ const DashboardChartType = () => {
     </div>
 }
 
-export default DashboardChartType
+export default BarChart
