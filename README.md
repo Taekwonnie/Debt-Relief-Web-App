@@ -12,10 +12,10 @@ Features:
 [x] Page routing / Redirector
 [x] Dashboard's sidebar
 [X] Setting page
-[ ] Link user with their data
-[ ] Debt input page
+[x] Link user with their data
+[x] Debt input page
 [ ] Debt chart page
-[ ] transaction page
+[x] transaction page
 
 </pre>
 
