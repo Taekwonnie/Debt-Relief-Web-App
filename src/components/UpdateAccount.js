@@ -80,7 +80,8 @@ export default function UpdateAccount() {
         history.push("/");
       })
       .catch((error) => {
-        if (error.message == "CREDENTIAL_TOO_OLD_LOGIN_AGAIN") {
+        console.log(error.code);
+        if (error.code == "auth/requires-recent-login") {
           setError("Your login seasson is too old, please login again!");
           sleep(3000).then(() => {
             logout();

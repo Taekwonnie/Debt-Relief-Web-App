@@ -25,9 +25,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
-    console.log(localTheme);
     setDarkMode(JSON.parse(localTheme));
-    console.log(darkMode);
   }, []);
 
   const theme = createMuiTheme({

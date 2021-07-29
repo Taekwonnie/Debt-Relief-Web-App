@@ -149,7 +149,8 @@ export default function Expense() {
     }
     var newID = Number(await generateNewID()) + Number(1);
     var date = moment(selectedDate).format("YYYY-MM-DD");
-
+    var check = moment(selectedDate, "YYYY/MM/DD");
+    var month = check.format("MMMM");
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
       Type: transType,
@@ -157,6 +158,7 @@ export default function Expense() {
       Note: noteInputRef.current.value,
       Date: date,
       ID: newID,
+      Month: month,
     };
     setError("");
     const res = await db
@@ -268,7 +270,7 @@ export default function Expense() {
                   </MenuItem>
                   <MenuItem value={"Groceries"}>Groceries</MenuItem> Groceries
                   expense
-                  <MenuItem value={"Home_improvement"}>
+                  <MenuItem value={"Home improvement"}>
                     Home Improvement
                   </MenuItem>{" "}
                   // home Improvement expense
@@ -280,9 +282,9 @@ export default function Expense() {
                   mics entertainment expense
                   <MenuItem value={"Medical"}>Medical</MenuItem> // medical
                   expense
-                  <MenuItem value={"Mortgage_Rent"}>Mortgage/Rent</MenuItem> //
+                  <MenuItem value={"Mortgage/Rent"}>Mortgage/Rent</MenuItem> //
                   monthly mortgage payment expense
-                  <MenuItem value={"Phone_Payment"}>
+                  <MenuItem value={"Phone Payment"}>
                     Cellular/Phone Payment
                   </MenuItem>{" "}
                   // mobile Cellular Payment expense

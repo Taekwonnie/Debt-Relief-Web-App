@@ -132,30 +132,18 @@ export default function Income() {
       return;
     }
 
-    class transaction {
-      constructor(newID, date) {
-        this.newID = newID;
-        this.date = date;
-      }
-      get newID() {
-        return this.newID;
-      }
-      get newDate() {
-        return this.date;
-      }
-    }
+    var newID = Number(await generateNewID()) + Number(1);
+    var date = moment(selectedDate).format("YYYY-MM-DD");
 
-    let transactionObject = new transaction(
-      Number(await generateNewID()) + Number(1),
-      moment(selectedDate).format("YYYY-MM-DD")
-    );
-
+    var check = moment(selectedDate, "YYYY/MM/DD");
+    var month = check.format("MMMM");
     const transactionData = {
       Amount: formatter.format(amountInputRef.current.value),
       Type: incomeType,
       UserID: currentUser.uid,
-      Date: transactionObject.date,
-      ID: transactionObject.newID,
+      Date: date,
+      ID: newID,
+      Month: month,
     };
 
     setError("");
