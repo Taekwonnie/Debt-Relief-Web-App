@@ -1,5 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
+import XLSX from "xlsx";
+import { db } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
+
 import {
   Button,
   Select,
@@ -31,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Setting() {
+  var savedNotifyVal;
+  var savedCurrencyVal = "";
+  var exportJson = "";
+  const { currentUser } = useAuth();
+  const importTextRef = useRef();
+  const [loading] = useState(false); //For button
   //For import/export prompt
   const [openExport, setOpenExport] = useState(false);
   const [openImport, setOpenImport] = useState(false);
@@ -42,8 +52,6 @@ export default function Setting() {
   const handleCloseImport = () => {
     setOpenImport(false);
   };
-
-  const importTextRef = useRef();
 
   const handleCloseImportSave = () => {
     var data = JSON.parse(importTextRef.current.value);
@@ -63,11 +71,6 @@ export default function Setting() {
   const handleCloseExport = () => {
     setOpenExport(false);
   };
-
-  const [loading] = useState(false); //For button
-  var savedNotifyVal;
-  var savedCurrencyVal = "";
-  var exportJson = "";
 
   function exportLocal() {
     exportJson = JSON.stringify(localStorage);
@@ -120,6 +123,78 @@ export default function Setting() {
     window.location.reload();
   }
 
+  let transactionDataArray = [];
+  async function getAllTransaction() {
+    const docRef = db.collection("UserTransaction");
+    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get(); //Only get transaction for the current user UID
+    snapshot.forEach((doc) => {
+      transactionDataArray.push(doc.data());
+    });
+  }
+
+  let incomeDataArray = [];
+  async function getAllIncome() {
+    const docRef = db.collection("UserIncome");
+    const snapshot = await docRef.where("UserID", "==", currentUser.uid).get(); //Only get transaction for the current user UID
+    snapshot.forEach((doc) => {
+      incomeDataArray.push(doc.data());
+    });
+  }
+
+  useEffect(() => {
+    //Run our fetch function on page render.
+    async function Fetch() {
+      getAllTransaction();
+      getAllIncome();
+    }
+    Fetch();
+  }, []);
+
+  async function ExportTransactionExcel() {
+    let item = [["ID", "Type", "Date", "Amount", "Note", "Month"]];
+    transactionDataArray.forEach((dataItem) => {
+      let itemArray = [
+        dataItem.ID,
+        dataItem.Type,
+        dataItem.Date,
+        dataItem.Amount,
+        dataItem.Note,
+        dataItem.Month,
+      ];
+      item.push(itemArray);
+    });
+    item.sort(function (a, b) {
+      return a[0] - b[0];
+    });
+    console.log(item);
+    const wb = XLSX.utils.book_new();
+    const wsAll = XLSX.utils.aoa_to_sheet(item);
+    XLSX.utils.book_append_sheet(wb, wsAll, "All Transaction");
+    XLSX.writeFile(wb, "Transaction&Expenses.xlsx");
+  }
+
+  async function ExportIncomeExcel() {
+    let item = [["ID", "Type", "Date", "Amount", "Month"]];
+    incomeDataArray.forEach((dataItem) => {
+      let itemArray = [
+        dataItem.ID,
+        dataItem.Type,
+        dataItem.Date,
+        dataItem.Amount,
+        dataItem.Month,
+      ];
+      item.push(itemArray);
+    });
+    item.sort(function (a, b) {
+      return a[0] - b[0];
+    });
+    console.log(item);
+    const wb = XLSX.utils.book_new();
+    const wsAll = XLSX.utils.aoa_to_sheet(item);
+    XLSX.utils.book_append_sheet(wb, wsAll, "All Income");
+    XLSX.writeFile(wb, "Income.xlsx");
+  }
+
   return (
     <div>
       <Sidebar />
@@ -149,8 +224,12 @@ export default function Setting() {
                   Current: {savedCurrencyVal}
                 </MenuItem>
                 <MenuItem value={"USD"}>U.S. Dollar (USD)</MenuItem>
-                <MenuItem value={"EUR"}>European Euro (EUR)</MenuItem>
-                <MenuItem value={"JPY"}>Japanese Yen (JPY)</MenuItem>
+                <MenuItem value={"EUR"} disabled>
+                  European Euro (EUR)
+                </MenuItem>
+                <MenuItem value={"JPY"} disabled>
+                  Japanese Yen (JPY)
+                </MenuItem>
               </Select>
               <FormHelperText className="w-100 text-justify mt-2">
                 Set your currency
@@ -243,7 +322,6 @@ export default function Setting() {
                 </Button>
               </DialogActions>
             </Dialog>
-
             <Button
               color="primary"
               size="large"
@@ -256,6 +334,30 @@ export default function Setting() {
               Export Settings
             </Button>
           </Box>
+          <Box>
+            <Button
+              color="default"
+              size="large"
+              onClick={ExportIncomeExcel}
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              className="w-100 text-center mt-2"
+            >
+              Export Income Data to Excel
+            </Button>
+          </Box>
+          <Button
+            color="default"
+            size="large"
+            onClick={ExportTransactionExcel}
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            className="w-100 text-center mt-2"
+          >
+            Export Transaction Data to Excel
+          </Button>
         </CardContent>
       </Card>
     </div>
