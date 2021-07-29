@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UpdateAccount() {
+  const sleep = (waitTimeInMs) =>
+    new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -76,8 +79,15 @@ export default function UpdateAccount() {
       .then(() => {
         history.push("/");
       })
-      .catch(() => {
-        setError("Failed to update account");
+      .catch((error) => {
+        if (error.message == "CREDENTIAL_TOO_OLD_LOGIN_AGAIN") {
+          setError("Your login seasson is too old, please login again!");
+          sleep(3000).then(() => {
+            logout();
+          });
+        } else {
+          setError("Update account failed.");
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -91,7 +101,7 @@ export default function UpdateAccount() {
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Card style={{ width: "500px", height: "200px" }}>
+            <Card style={{ width: "500px", height: "150px" }}>
               <CardHeader
                 className="text-center mb-4"
                 avatar={<Avatar aria-label="profile-pic"></Avatar>}
