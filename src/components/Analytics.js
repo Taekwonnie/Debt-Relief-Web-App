@@ -5,7 +5,6 @@ import { Card, CardContent, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Chart } from "react-google-charts";
-import { Container, Row, Col } from "react-bootstrap";
 import moment from "moment";
 import { db } from "../firebase";
 
@@ -26,7 +25,6 @@ export default function Analytics() {
     Phone: 0,
     Edu: 0,
     Misc: 0,
-    Total: 0,
   });
 
   let month = "";
@@ -41,22 +39,24 @@ export default function Analytics() {
   var mortgageAmount = 0;
   var eduAmount = 0;
   var miscAmount = 0;
-  var totalAmount = 0;
   month = moment().format("MMMM"); //should work
 
   async function fetchMonthlyExpenses() {
-    setErrorPieChart("");
+    const sleep = (waitTimeInMs) =>
+      new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
+    setErrorPieChart(""); //No error yet
     const docRef = db.collection("UserTransaction");
     const snapshot = await docRef
       .where("UserID", "==", currentUser.uid)
       .where("Month", "==", month)
-      .get(); //Only get transaction for the current user UID
+      .get(); //Only get transaction for the current user UID in current month
     snapshot.forEach((doc) => {
       var dataResult = doc.data();
-      var stringAmount = dataResult.Amount;
-      var numberAmount = Number(stringAmount.replace(/[^0-9.-]+/g, ""));
-      totalAmount += numberAmount;
-      switch (dataResult.Type) {
+      var stringAmount = dataResult.Amount; //Get the amount of the current transaction
+      var numberAmount = Number(stringAmount.replace(/[^0-9.-]+/g, "")); //Remove the currency symbol and convert to integer/number
+      switch (
+        dataResult.Type //Switch statement to add up expenses for each category
+      ) {
         case "Vehicle":
           vehicleAmount += numberAmount;
           break;
@@ -92,6 +92,7 @@ export default function Analytics() {
           break;
       }
       const dataObject = {
+        //Create object to hold everything
         Vehicle: vehicleAmount,
         Groceries: groceriesAmount,
         Home: homeAmount,
@@ -103,23 +104,26 @@ export default function Analytics() {
         Phone: phoneAmount,
         Edu: eduAmount,
         Misc: miscAmount,
-        Total: totalAmount,
       };
-      setData(dataObject);
-      const isEmpty = Object.values(dataObject).every((x) => x === 0);
+      setData(dataObject); //Set the object so that we can use later
+      const isEmpty = Object.values(dataObject).every((x) => x === 0); //Check if we have at least 1 type of category to show
       if (isEmpty == true) {
-        setErrorPieChart("There is no data to show");
+        //If not then prompt error
+        setErrorPieChart(
+          "There is no data to show for the current month. Please use the transaction page to enter at least 1 transaction for the current month"
+        );
       }
     });
   }
+
   useEffect(() => {
+    //Run our fetch function on page render.
     async function Fetch() {
       fetchMonthlyExpenses();
     }
     Fetch();
   }, []);
 
-  // TODO: change amount, debt, and monthly payment to user's data
   return (
     <div>
       <Sidebar />
@@ -190,7 +194,6 @@ export default function Analytics() {
                   ["Dec", 1000, 1000],
                 ]}
                 options={{
-                  title: "Debt Payoff",
                   chartArea: { width: "49%" },
                   isStacked: true,
                   hAxis: {

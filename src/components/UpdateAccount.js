@@ -82,8 +82,10 @@ export default function UpdateAccount() {
       .catch((error) => {
         console.log(error.code);
         if (error.code == "auth/requires-recent-login") {
-          setError("Your login seasson is too old, please login again!");
-          sleep(3000).then(() => {
+          setError(
+            "Sorry, your login seasson is too old You will be redirect back to the login page in 5 seconds."
+          );
+          sleep(5000).then(() => {
             logout();
           });
         } else {

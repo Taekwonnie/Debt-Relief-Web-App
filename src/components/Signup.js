@@ -59,7 +59,11 @@ export default function Signup() {
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Create an account</h2>
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && (
+            <Alert severity="error" className="mb-4">
+              {error}
+            </Alert>
+          )}
           <Form onSubmit={handleSubmit}>
             <div
               style={{
