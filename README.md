@@ -14,7 +14,7 @@ Features:
 [X] Setting page
 [x] Link user with their data
 [x] Debt input page
-[ ] Debt chart page
+[x] Debt chart page
 [x] transaction page
 
 </pre>
