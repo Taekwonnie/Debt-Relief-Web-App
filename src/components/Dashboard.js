@@ -1,25 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  Grid,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
-//import Alert from "@material-ui/lab/Alert";
+import { Card, CardContent, Grid, makeStyles, Typography } from "@material-ui/core";
 import Sidebar from "./Sidebar";
-import { Row, Col } from "react-bootstrap";
 import LineChart from "./DashboardChart";
-import { db } from "../firebase";
-
-const useStyles = makeStyles({
-  gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-  },
-});
 
 export default function Dashboard() {
   const [error, setError] = useState("");

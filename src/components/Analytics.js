@@ -12,9 +12,9 @@ export default function Analytics() {
   const [errorPieChart, setErrorPieChart] = useState("");
   const [errorBarChart, setErrorBarChart] = useState("");
   const [debtAmount, getDebtAmount] = useState(""); //Debt Amount value/set
-const [debtInterest, getDebtInterest] = useState(""); //Debt Interest value/set
-const [debtPayment, getDebtPayment] = useState(""); //Debt Interest value/set
-const [loading, setLoading] = useState(false); //Set loading state
+  const [debtInterest, getDebtInterest] = useState(""); //Debt Interest value/set
+  const [debtPayment, getDebtPayment] = useState(""); //Debt Interest value/set
+  const [loading, setLoading] = useState(false); //Set loading state
   const history = useHistory();
   const { currentUser } = useAuth();
   const [data, setData] = useState({
