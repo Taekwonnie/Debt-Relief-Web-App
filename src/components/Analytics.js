@@ -11,6 +11,10 @@ import { db } from "../firebase";
 export default function Analytics() {
   const [errorPieChart, setErrorPieChart] = useState("");
   const [errorBarChart, setErrorBarChart] = useState("");
+  const [debtAmount, getDebtAmount] = useState(""); //Debt Amount value/set
+const [debtInterest, getDebtInterest] = useState(""); //Debt Interest value/set
+const [debtPayment, getDebtPayment] = useState(""); //Debt Interest value/set
+const [loading, setLoading] = useState(false); //Set loading state
   const history = useHistory();
   const { currentUser } = useAuth();
   const [data, setData] = useState({
@@ -124,6 +128,48 @@ export default function Analytics() {
     Fetch();
   }, []);
 
+  // get UserFinance data (DebtAmount, DebtInterestRate, debtMonthlyPayment)
+  async function getUserFinanceData() {
+    const docRef = await db.collection("UserFinance").doc(currentUser.uid);
+    const doc = await docRef.get();
+    const docData = doc.data();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      console.log("Document data:", docData.DebtAmount);
+    }
+    getDebtAmount(docData.DebtAmount);
+    getDebtInterest(docData.DebtInterestRate);
+    getDebtPayment(docData.DebtMonthlyPayment);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchTransaction() {
+      getUserFinanceData();
+      setLoading(false);
+    }
+    fetchTransaction();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  // variables for bar chart and to calculate debt payoff
+  var debt = Number(debtAmount);
+  var interest = Number(debtInterest);
+  var payment = Number(debtPayment);
+  var time = Number(0); // in months
+
+  // work in progress debt payoff function. NOT CORRECT CALCULATION
+  async function calcDebtPayoff() {
+    debt = (debt * interest) + debt;
+    time = debt / payment;
+    return time;
+  }
+
+  //TODO: modify bar chart and display time to payoff debt
   return (
     <div>
       <Sidebar />
@@ -180,18 +226,18 @@ export default function Analytics() {
                 loader={<div>Loading Chart</div>}
                 data={[
                   ["Month", "Debt", "Monthly Payment"],
-                  ["Jan", 12000, 1000],
-                  ["Feb", 11000, 1000],
-                  ["Mar", 10000, 1000],
-                  ["Apr", 9000, 1000],
-                  ["May", 8000, 1000],
-                  ["Jun", 7000, 1000],
-                  ["Jul", 6000, 1000],
-                  ["Aug", 5000, 1000],
-                  ["Sept", 4000, 1000],
-                  ["Oct", 3000, 1000],
-                  ["Nov", 2000, 1000],
-                  ["Dec", 1000, 1000],
+                  ["Jan", debt, payment],
+                  ["Feb", debt -= payment, payment],
+                  ["Mar", debt -= payment, payment],
+                  ["Apr", debt -= payment, payment],
+                  ["May", debt -= payment, payment],
+                  ["Jun", debt -= payment, payment],
+                  ["Jul", debt -= payment, payment],
+                  ["Aug", debt -= payment, payment],
+                  ["Sept", debt -= payment, payment],
+                  ["Oct", debt -= payment, payment],
+                  ["Nov", debt -= payment, payment],
+                  ["Dec", debt -= payment, payment],
                 ]}
                 options={{
                   chartArea: { width: "49%" },
