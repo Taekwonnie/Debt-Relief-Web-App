@@ -4,11 +4,49 @@ import { useHistory } from "react-router-dom";
 import { Card, CardContent, Grid, makeStyles, Typography } from "@material-ui/core";
 import Sidebar from "./Sidebar";
 import LineChart from "./DashboardChart";
+import { db } from "../firebase";
 
 export default function Dashboard() {
+
   const [error, setError] = useState("");
+  const [debtAmount, getDebtAmount] = useState(""); //Debt Amount value/set
+  const [debtInterest, getDebtInterest] = useState(""); //Debt Interest value/set
+  const [debtPayment, getDebtPayment] = useState(""); //Debt Interest value/set
+  const [loading, setLoading] = useState(false); //Set loading state
   const history = useHistory();
   const { currentUser } = useAuth();
+    
+  // get UserFinance data (DebtAmount, DebtInterestRate, debtMonthlyPayment)
+  async function getUserFinanceData() {
+    const docRef = await db.collection("UserFinance").doc(currentUser.uid);
+    const doc = await docRef.get();
+    const docData = doc.data();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      console.log("Document data:", docData.DebtAmount);
+    }
+    getDebtAmount(docData.DebtAmount);
+    getDebtInterest(docData.DebtInterestRate);
+    getDebtPayment(docData.DebtMonthlyPayment);
+  }
+    
+  if (loading) {
+      return <h1>Loading...</h1>;
+  }
+    
+  // variables for bar chart and to calculate debt payoff
+  var debt = Number(debtAmount);
+  var interest = Number(debtInterest);
+  var payment = Number(debtPayment);
+  var time = Number(0); // in months
+    
+  // work in progress debt payoff function. NOT CORRECT CALCULATION
+  async function calcDebtPayoff() {
+      debt = (debt * interest) + debt;
+      time = debt / payment;
+      return time;
+  }
 
   return (
     <>

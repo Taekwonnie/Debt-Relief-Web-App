@@ -15,17 +15,17 @@ const LineChart = () => {
     
     // get UserFinance data (DebtAmount, DebtInterestRate, debtMonthlyPayment)
     async function getUserFinanceData() {
-    const docRef = await db.collection("UserFinance").doc(currentUser.uid);
-    const doc = await docRef.get();
-    const docData = doc.data();
-    if (!doc.exists) {
-        console.log("No such document!");
-    } else {
-        console.log("Document data:", docData.DebtAmount);
-    }
-    getDebtAmount(docData.DebtAmount);
-    getDebtInterest(docData.DebtInterestRate);
-    getDebtPayment(docData.DebtMonthlyPayment);
+        const docRef = await db.collection("UserFinance").doc(currentUser.uid);
+        const doc = await docRef.get();
+        const docData = doc.data();
+        if (!doc.exists) {
+            console.log("No such document!");
+        } else {
+            console.log("Document data:", docData.DebtAmount);
+        }
+        getDebtAmount(docData.DebtAmount);
+        getDebtInterest(docData.DebtInterestRate);
+        getDebtPayment(docData.DebtMonthlyPayment);
     }
     
     useEffect(() => {
