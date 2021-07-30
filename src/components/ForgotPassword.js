@@ -40,8 +40,16 @@ export default function ForgotPassword() {
       <Card>
         <CardContent>
           <h2 className="text-center mb-4">Forgot your password?</h2>
-          {error && <Alert severity="error">{error}</Alert>}
-          {messsage && <Alert severity="success">{messsage}</Alert>}
+          {error && (
+            <Alert severity="error" className="mb-4">
+              {error}
+            </Alert>
+          )}
+          {messsage && (
+            <Alert severity="success" className="mb-4">
+              {messsage}
+            </Alert>
+          )}
           Please enter the email address for your account. A verification link
           will be sent to you. Once you have received the link. You will be able
           to choose a new password for your account.

@@ -3,7 +3,11 @@ import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory, Link } from "react-router-dom";
 import {
-  Button, TextField, Link as MaterialLink, Card, CardContent,
+  Button,
+  TextField,
+  Link as MaterialLink,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
@@ -55,7 +59,7 @@ export default function Login() {
         <CardContent>
           <h2 className="text-start mb-4">Welcome Back!</h2>
           {error && (
-            <Alert variant="outlined" severity="error">
+            <Alert variant="outlined" severity="error" className="mb-4">
               {error}
             </Alert>
           )}
