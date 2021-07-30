@@ -164,10 +164,17 @@ export default function Analytics() {
   var payment = Number(debtPayment);
   var time = Number(0); // in months
 
-  // work in progress debt payoff function. NOT CORRECT CALCULATION
+  // debt payoff function
   async function calcDebtPayoff() {
-    debt = debt * interest + debt;
-    time = debt / payment;
+    interest /= 100; // convert percentage to decimal
+    interest /= 12; // get actual annual interest rate
+
+    while (debt >= 0) {
+      debt = debt * interest + debt;
+      debt -= payment;
+      time++;
+    }
+
     return time;
   }
 
