@@ -11,7 +11,8 @@ import {
 //import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Row, Col } from "react-bootstrap";
-import BarChart from "./DashboardChart";
+import LineChart from "./DashboardChart";
+import { db } from "../firebase";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -28,36 +29,43 @@ export default function Dashboard() {
   return (
     <>
       <Sidebar />
-      <Grid container spacing={10}>
+      <Grid container spacing={5}>
         <Grid item xs={24} sm={12} md={12}>
           <Card>
             <CardContent>
-              <h2 className="text-center mb-2">Brief Summary</h2>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h2 className="text-center mb-2">Details</h2>
+              <h1 className="text-center mb-2">Brief Summary</h1>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={24} sm={12} md={12}>
-          <Card>
+        <Card>
             <CardContent>
-              <BarChart />
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={24} sm={12} md={12}>
-          <Card>
-            <CardContent>
-              <Typography component="h2" align="center">
-                Debt Relief Tips
+            <Typography variant="h5" align="left">
+                Details
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 <Typography variant="body2" color="textSecondary" component="p">
-                  • Tip 1 <br></br>• Tip 2 <br></br>• Tip 3 <br></br>• Tip 4{" "}
-                  <br></br>• Tip 5 <br></br>
+                  Debt Balance: <br></br> Debt Interest: <br></br> Monthly Payment: <br></br>
+                </Typography>
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <LineChart />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={24} sm={12} md={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" align="left">
+                Helpful Tips
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body2" color="textSecondary" component="p">
+                  • Tip #1: Cook your own food <br></br>• Tip #2: Freeze your credit card <br></br>• Tip #3: Look for cheaper rates on insurances <br></br>• Tip #4: Start using coupons, rebates, and discounts
+                  <br></br>• Tip #5: Turn a hobby into a business <br></br>
                 </Typography>
               </Typography>
             </CardContent>
