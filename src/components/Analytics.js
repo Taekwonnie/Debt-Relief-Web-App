@@ -158,29 +158,9 @@ export default function Analytics() {
     return <h1>Loading...</h1>;
   }
 
-  // variables for bar chart and to calculate debt payoff
-  var debt = Number(debtAmount);
-  var interest = Number(debtInterest);
-  var payment = Number(debtPayment);
-  var time = Number(0); // in months
-
-  // debt payoff function
-  async function calcDebtPayoff() {
-    interest /= 100; // convert percentage to decimal
-    interest /= 12; // get actual annual interest rate
-
-    while (debt >= 0) {
-      debt = debt * interest + debt;
-      debt -= payment;
-      time++;
-    }
-
-    return time;
-  }
-
   //TODO: modify bar chart and display time to payoff debt
   return (
-    <div>
+    <div style={{ minHeight: "55vh" }}>
       <Sidebar />
       <Grid container spacing={3} wrap="nowrap">
         <Grid item xs={12}>

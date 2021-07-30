@@ -41,21 +41,11 @@ function App() {
           className="d-flex align-items-center justify-content-center"
           style={{ minHeight: "100vh" }}
         >
-          <div className="theme-button">
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => setDarkMode(!darkMode)}
-            >
-              Theme
-            </Button>
-          </div>
           <div className={classes.container}>
             <div className="w-100" style={{ maxWidth: 500, minWidth: 400 }}>
               <Router>
                 <AuthProvider>
                   <Switch>
-                    <PrivateRoute exact path="/" component={Dashboard} />
                     <PrivateRoute
                       exact
                       path="/update-account"
@@ -68,6 +58,7 @@ function App() {
                     <Route path="/signup" component={Signup} />
                     <Route path="/forgot-password" component={ForgotPassword} />
                     <div className="center">
+                      <PrivateRoute exact path="/" component={Dashboard} />
                       <PrivateRoute exact path="/income" component={Income} />
                       <PrivateRoute exact path="/expense" component={Expense} />
                       <PrivateRoute
