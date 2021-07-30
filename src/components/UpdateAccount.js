@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
-import { Row, Col } from "react-bootstrap";
 import {
   Grid,
   CardHeader,
@@ -81,7 +80,7 @@ export default function UpdateAccount() {
       })
       .catch((error) => {
         console.log(error.code);
-        if (error.code == "auth/requires-recent-login") {
+        if (error.code === "auth/requires-recent-login") {
           setError(
             "Sorry, your login seasson is too old You will be redirect back to the login page in 5 seconds."
           );

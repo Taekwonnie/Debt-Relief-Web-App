@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
 import { Card, CardContent, Grid } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Sidebar from "./Sidebar";
 import { Chart } from "react-google-charts";
 import moment from "moment";
 import { db } from "../firebase";
+import { Pie } from "react-chartjs-2";
+
+//import { BarChart } from "@material-ui/icons";
+import BarChart from "./AnalyticsBarGraph";
 
 export default function Analytics() {
   const [errorPieChart, setErrorPieChart] = useState("");
@@ -15,7 +18,6 @@ export default function Analytics() {
   const [debtInterest, getDebtInterest] = useState(""); //Debt Interest value/set
   const [debtPayment, getDebtPayment] = useState(""); //Debt Interest value/set
   const [loading, setLoading] = useState(false); //Set loading state
-  const history = useHistory();
   const { currentUser } = useAuth();
   const [data, setData] = useState({
     vehicle: 0,
@@ -133,11 +135,11 @@ export default function Analytics() {
     const docRef = await db.collection("UserFinance").doc(currentUser.uid);
     const doc = await docRef.get();
     const docData = doc.data();
-    if (!doc.exists) {
-      console.log("No such document!");
-    } else {
-      console.log("Document data:", docData.DebtAmount);
-    }
+    //if (!doc.exists) {
+    // console.log("No such document!");
+    // } else {
+    //console.log("Document data:", docData.DebtAmount);
+    //}
     getDebtAmount(docData.DebtAmount);
     getDebtInterest(docData.DebtInterestRate);
     getDebtPayment(docData.DebtMonthlyPayment);
@@ -146,7 +148,7 @@ export default function Analytics() {
   useEffect(() => {
     setLoading(true);
     async function fetchTransaction() {
-      getUserFinanceData();
+      //getUserFinanceData();
       setLoading(false);
     }
     fetchTransaction();
@@ -164,7 +166,7 @@ export default function Analytics() {
 
   // work in progress debt payoff function. NOT CORRECT CALCULATION
   async function calcDebtPayoff() {
-    debt = (debt * interest) + debt;
+    debt = debt * interest + debt;
     time = debt / payment;
     return time;
   }
@@ -175,7 +177,7 @@ export default function Analytics() {
       <Sidebar />
       <Grid container spacing={3} wrap="nowrap">
         <Grid item xs={12}>
-          <Card>
+          <Card style={{ width: "700px", height: "800px" }}>
             <CardContent>
               <h2 className="text-center mb-4">Current Expenses for {month}</h2>
               {errorPieChart && (
@@ -183,35 +185,86 @@ export default function Analytics() {
                   {errorPieChart}
                 </Alert>
               )}
-              <Chart
-                width={"500px"}
-                height={"300px"}
-                chartType="PieChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["Expense", "Amount"],
-                  ["Vehicle", data.Vehicle],
-                  ["Groceries", data.Groceries],
-                  ["Home Improvement", data.Home],
-                  ["Utility", data.Utility],
-                  ["Petrol/Gas", data.Fuel],
-                  ["Entertainment", data.Entertainment],
-                  ["Medical", data.Medical],
-                  ["Mortgage/Rent", data.Mortgage],
-                  ["Cellular/Phone Payment", data.Phone],
-                  ["Education", data.Edu],
-                  ["Misc", data.Misc],
-                ]}
-                options={{
-                  chartArea: { width: "100%" },
+              <Pie
+                data={{
+                  datasets: [
+                    {
+                      label: "Monthly Debt Principle Payoff",
+                      data: [
+                        data.Vehicle,
+                        data.Groceries,
+                        data.Home,
+                        data.Utility,
+                        data.Fuel,
+                        data.Entertainment,
+                        data.Medical,
+                        data.Mortgage,
+                        data.Phone,
+                        data.Edu,
+                        data.Misc,
+                      ],
+                      backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)",
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)",
+                      ],
+                      borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)",
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)",
+                      ],
+                      borderWidth: 1,
+                    },
+                  ],
+                  labels: [
+                    "Vehicle",
+                    "Groceries",
+                    "Home Improvement",
+                    "Utility",
+                    "Petrol/Gas",
+                    "Entertainment",
+                    "Medical",
+                    "Mortgage/Rent",
+                    "Cellular/Phone Payment",
+                    "Education",
+                    "Misc",
+                  ],
                 }}
-                rootProps={{ "data-testid": "1" }}
+                height={400}
+                width={600}
+                options={{
+                  aspectRatio: 1, // this would be a 1:1 aspect ratio
+                  plugins: {
+                    labels: {
+                      render: "value",
+                      // precision for percentage, default is 0
+                    },
+                  },
+                }}
               />
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card>
+          <Card style={{ width: "700px", height: "800px" }}>
             <CardContent>
               <h2 className="text-center mb-4">Debt Payoff Chart</h2>
               {errorBarChart && (
@@ -219,39 +272,7 @@ export default function Analytics() {
                   {errorBarChart}
                 </Alert>
               )}
-              <Chart
-                width={"500px"}
-                height={"300px"}
-                chartType="ColumnChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["Month", "Debt", "Monthly Payment"],
-                  ["Jan", debt, payment],
-                  ["Feb", debt -= payment, payment],
-                  ["Mar", debt -= payment, payment],
-                  ["Apr", debt -= payment, payment],
-                  ["May", debt -= payment, payment],
-                  ["Jun", debt -= payment, payment],
-                  ["Jul", debt -= payment, payment],
-                  ["Aug", debt -= payment, payment],
-                  ["Sept", debt -= payment, payment],
-                  ["Oct", debt -= payment, payment],
-                  ["Nov", debt -= payment, payment],
-                  ["Dec", debt -= payment, payment],
-                ]}
-                options={{
-                  chartArea: { width: "49%" },
-                  isStacked: true,
-                  hAxis: {
-                    title: "Month",
-                    minValue: 0,
-                  },
-                  vAxis: {
-                    title: "Amount",
-                  },
-                }}
-                rootProps={{ "data-testid": "2" }}
-              />
+              <BarChart />
             </CardContent>
           </Card>
         </Grid>
