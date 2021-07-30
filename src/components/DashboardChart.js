@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-import { Line } from 'react-chartjs-2';
-import { db } from '../firebase';
+import { Line } from "react-chartjs-2";
+import { db } from "../firebase";
 
 const LineChart = () => {
 
@@ -60,7 +60,7 @@ const LineChart = () => {
             data={{
                 datasets: [
                     {
-                        label: 'Monthly Debt Amount',
+                        label: "Monthly Debt Amount",
                         data: [
                         ["January", debt, payment],
                         ["February", debt -= payment, payment],
