@@ -126,6 +126,7 @@ export default function Analytics() {
     //Run our fetch function on page render.
     async function Fetch() {
       fetchMonthlyExpenses();
+      getUserFinanceData();
     }
     Fetch();
   }, []);
@@ -144,15 +145,6 @@ export default function Analytics() {
     getDebtInterest(docData.DebtInterestRate);
     getDebtPayment(docData.DebtMonthlyPayment);
   }
-
-  useEffect(() => {
-    setLoading(true);
-    async function fetchTransaction() {
-      //getUserFinanceData();
-      setLoading(false);
-    }
-    fetchTransaction();
-  }, []);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -254,6 +246,9 @@ export default function Analytics() {
           <Card style={{ width: "700px", height: "800px" }}>
             <CardContent>
               <h2 className="text-center mb-4">Debt Payoff Chart</h2>
+              <h5 className="text-center mb-4">
+                Monthly Payment: ${debtPayment}
+              </h5>
               {errorBarChart && (
                 <Alert variant="outlined" severity="warning" className="mb-3">
                   {errorBarChart}
