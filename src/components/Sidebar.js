@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -132,9 +132,6 @@ const Sidebar = (props) => {
   };
 
   function darkMode() {
-    if (!localStorage.getItem("theme")) {
-      localStorage.setItem("theme", false);
-    }
     var aValue = localStorage.getItem("theme");
     if (aValue === "true") {
       console.log("1");
@@ -145,6 +142,12 @@ const Sidebar = (props) => {
     }
     window.location.reload();
   }
+
+  useEffect(() => {
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", false);
+    }
+  }, []);
 
   const itemListMain = [
     {

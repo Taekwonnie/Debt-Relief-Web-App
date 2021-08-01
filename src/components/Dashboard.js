@@ -48,6 +48,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", false);
+    }
     async function fetchTransaction() {
       fetchUserDebtInformation();
     }
