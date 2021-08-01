@@ -18,16 +18,30 @@ export function GetDebtInformation() {
     const docRef = db.collection("UserFinance").doc(currentUser.uid);
     let doc = await docRef.get();
     doc = doc.data();
-    var debt = doc.DebtAmount;
-    var interest = doc.DebtInterestRate / 100;
-    var monthlyPayment = doc.DebtMonthlyPayment;
-    const userDebtInformationObject = {
-      debt: debt,
-      interest: interest,
-      monthlyPayment: monthlyPayment,
-    };
-    console.log("Reading database in UserInformation.js ...");
-    return userDebtInformationObject;
+    if (!doc) {
+      console.log("No Doc... Adding new user now");
+      const FinanceDataNewUser = {
+        DebtAmount: 0,
+        DebtInterestRate: 0,
+        DebtMonthlyPayment: 0,
+      };
+      const res = await db
+        .collection("UserFinance")
+        .doc(currentUser.uid)
+        .set(FinanceDataNewUser);
+      window.location.reload();
+    } else {
+      var debt = doc.DebtAmount;
+      var interest = doc.DebtInterestRate / 100;
+      var monthlyPayment = doc.DebtMonthlyPayment;
+      const userDebtInformationObject = {
+        debt: debt,
+        interest: interest,
+        monthlyPayment: monthlyPayment,
+      };
+      console.log("Reading database in UserInformation.js ...");
+      return userDebtInformationObject;
+    }
   }
 
   async function calculate() {
