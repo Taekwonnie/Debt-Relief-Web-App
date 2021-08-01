@@ -27,10 +27,24 @@ export default function Dashboard() {
     const docRef = db.collection("UserFinance").doc(currentUser.uid);
     let doc = await docRef.get();
     doc = doc.data();
-    getDebtAmount(doc.DebtAmount);
-    getDebtInterest(doc.DebtInterestRate);
-    getDebtPayment(doc.DebtMonthlyPayment);
-    console.log("Reading database");
+    if (doc) {
+      getDebtAmount(doc.DebtAmount);
+      getDebtInterest(doc.DebtInterestRate);
+      getDebtPayment(doc.DebtMonthlyPayment);
+      console.log("Reading database");
+    } else {
+      console.log("No Doc... Adding new user now");
+      const FinanceDataNewUser = {
+        DebtAmount: 0,
+        DebtInterestRate: 0,
+        DebtMonthlyPayment: 0,
+      };
+      const res = await db
+        .collection("UserFinance")
+        .doc(currentUser.uid)
+        .set(FinanceDataNewUser);
+      window.location.reload();
+    }
   }
 
   useEffect(() => {
