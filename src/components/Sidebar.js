@@ -132,7 +132,11 @@ const Sidebar = (props) => {
   };
 
   function darkMode() {
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", false);
+    }
     var aValue = localStorage.getItem("theme");
+
     if (aValue === "true") {
       console.log("1");
       localStorage.setItem("theme", false);
