@@ -55,7 +55,10 @@ export default function Debt() {
     }
     try {
       const docRef = db.collection("UserFinance");
-      await db.collection("UserFinance").doc(currentUser.uid).set(UserDebtFinanceData, { merge: true });
+      await db
+        .collection("UserFinance")
+        .doc(currentUser.uid)
+        .set(UserDebtFinanceData, { merge: true });
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +66,7 @@ export default function Debt() {
   }
 
   async function getUserFinanceData() {
+    console.log("Reading database in Debt.js ...");
     const docRef = await db.collection("UserFinance").doc(currentUser.uid);
     const doc = await docRef.get();
     const docData = doc.data();

@@ -175,6 +175,7 @@ export default function Expense() {
   //#GetData
   async function getTransactionData() {
     try {
+      console.log("Reading database in Expense.js ...");
       const snapshot = await db
         .collection("UserTransaction")
         .where("UserID", "==", currentUser.uid)

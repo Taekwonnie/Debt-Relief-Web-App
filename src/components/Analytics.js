@@ -48,6 +48,7 @@ export default function Analytics() {
   month = moment().format("MMMM"); //should work
 
   async function fetchMonthlyExpenses() {
+    console.log("Reading database in Analytics.js...");
     const sleep = (waitTimeInMs) =>
       new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
     setErrorPieChart(""); //No error yet
@@ -136,14 +137,10 @@ export default function Analytics() {
     const docRef = await db.collection("UserFinance").doc(currentUser.uid);
     const doc = await docRef.get();
     const docData = doc.data();
-    //if (!doc.exists) {
-    // console.log("No such document!");
-    // } else {
-    //console.log("Document data:", docData.DebtAmount);
-    //}
     getDebtAmount(docData.DebtAmount);
     getDebtInterest(docData.DebtInterestRate);
     getDebtPayment(docData.DebtMonthlyPayment);
+    console.log("Reading database in Analytics.js...");
   }
 
   if (loading) {

@@ -94,6 +94,8 @@ export default function Income() {
   //#GetData
   async function getIncomeData() {
     try {
+      console.log("Reading database in Income.js ...");
+
       const snapshot = await db
         .collection("UserIncome")
         .where("UserID", "==", currentUser.uid)
@@ -104,6 +106,7 @@ export default function Income() {
 
   //Generate ID for transaction
   async function generateNewID() {
+    console.log("Reading database in Income.js ...");
     var highestID = 0;
     const docRef = db.collection("UserIncome");
     const snapshot = await docRef.where("UserID", "==", currentUser.uid).get(); //Only get transaction for the current user UID

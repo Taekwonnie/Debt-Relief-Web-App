@@ -26,11 +26,14 @@ export function GetDebtInformation() {
       interest: interest,
       monthlyPayment: monthlyPayment,
     };
-    console.log("Reading database...");
+    console.log("Reading database in UserInformation.js ...");
     return userDebtInformationObject;
   }
 
   async function calculate() {
+    interestMonthlyArray = [];
+    principleMonthlyArray = [];
+    debtRemainArray = [];
     var debtObject = await fetchUserDebtInformation();
     var totalInterests = 0;
     var interest = Number(debtObject.interest);
@@ -38,7 +41,7 @@ export function GetDebtInformation() {
     var debt = Number(debtObject.debt);
     var monthlyPayment = Number(debtObject.monthlyPayment);
     interestPerBalance = interestPerBalance.toFixed(8);
-    while (debt > 0) {
+    while (debt >= 0) {
       var MonthlyInterestAmount = debt * interestPerBalance;
       var MonthlyPrincipleAmount = monthlyPayment - MonthlyInterestAmount;
       totalInterests += MonthlyInterestAmount;
@@ -46,11 +49,13 @@ export function GetDebtInformation() {
       debt = debt - MonthlyPrincipleAmount;
       if (debt < 0) {
         MonthlyPrincipleAmount = previousDebt;
-        debt = 0;
+        principleMonthlyArray.push(MonthlyPrincipleAmount.toFixed(2));
+        debtRemainArray.push(0);
+      } else {
+        interestMonthlyArray.push(MonthlyInterestAmount.toFixed(2));
+        principleMonthlyArray.push(MonthlyPrincipleAmount.toFixed(2));
+        debtRemainArray.push(debt.toFixed(2));
       }
-      interestMonthlyArray.push(MonthlyInterestAmount.toFixed(2));
-      principleMonthlyArray.push(MonthlyPrincipleAmount.toFixed(2));
-      debtRemainArray.push(debt.toFixed(2));
     }
     setTotalInterest(totalInterests);
   }

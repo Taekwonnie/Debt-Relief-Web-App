@@ -79,7 +79,6 @@ export default function UpdateAccount() {
         history.push("/");
       })
       .catch((error) => {
-        console.log(error.code);
         if (error.code === "auth/requires-recent-login") {
           setError(
             "Sorry, your login seasson is too old You will be redirect back to the login page in 5 seconds."

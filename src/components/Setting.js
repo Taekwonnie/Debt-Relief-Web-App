@@ -130,6 +130,7 @@ export default function Setting() {
     snapshot.forEach((doc) => {
       transactionDataArray.push(doc.data());
     });
+    console.log("Reading database in Setting.js ...");
   }
 
   let incomeDataArray = [];
@@ -139,6 +140,7 @@ export default function Setting() {
     snapshot.forEach((doc) => {
       incomeDataArray.push(doc.data());
     });
+    console.log("Reading database in Setting.js ...");
   }
 
   useEffect(() => {
