@@ -136,7 +136,6 @@ const Sidebar = (props) => {
       localStorage.setItem("theme", false);
     }
     var aValue = localStorage.getItem("theme");
-
     if (aValue === "true") {
       console.log("1");
       localStorage.setItem("theme", false);

@@ -171,8 +171,26 @@ export default function Setting() {
     console.log(item);
     const wb = XLSX.utils.book_new();
     const wsAll = XLSX.utils.aoa_to_sheet(item);
+    var wscols = [
+      { wch: 6 }, //id
+      { wch: 20 }, //type
+      { wch: 10 }, //date
+      { wch: 10 }, //amount
+      { wch: 45 }, //note
+      { wch: 6 }, //month
+    ];
+    wsAll["!cols"] = wscols;
     XLSX.utils.book_append_sheet(wb, wsAll, "All Transaction");
     XLSX.writeFile(wb, "Transaction&Expenses.xlsx");
+  }
+
+  function fitToColumn(arrayOfArray) {
+    // get maximum character of each column
+    return arrayOfArray[0].map((a, i) => ({
+      wch: Math.max(
+        ...arrayOfArray.map((a2) => (a2[i] ? a2[i].toString().length : 0))
+      ),
+    }));
   }
 
   async function ExportIncomeExcel() {
@@ -193,6 +211,8 @@ export default function Setting() {
     console.log(item);
     const wb = XLSX.utils.book_new();
     const wsAll = XLSX.utils.aoa_to_sheet(item);
+    var wscols = [{ wch: 6 }, { wch: 15 }, { wch: 10 }, { wch: 20 }];
+    wsAll["!cols"] = wscols;
     XLSX.utils.book_append_sheet(wb, wsAll, "All Income");
     XLSX.writeFile(wb, "Income.xlsx");
   }
