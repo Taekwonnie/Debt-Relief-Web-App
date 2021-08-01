@@ -1,10 +1,14 @@
+The goal of our project is to create a web app that helps people to reduce their debt by providing the user with:
+Analytics of their expenses and debt payoff time
+Provide ways the user can reduce expenses
+Most people in the world tend to be in debt and we want to provide a baseline for people looking to pay back their debt.
+
 # Getting Started with Debt Relief APP
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 <pre>
 Features:
-
 [x] Login
 [x] Sign Up
 [x] Reset Password
@@ -14,9 +18,11 @@ Features:
 [X] Setting page
 [x] Link user with their data
 [x] Debt input page
-[x] Debt chart page
+[x] Income input page
 [x] transaction page
-
+[x] Setting page
+[x] Analytic page
+[x] Light & Dark Theme
 </pre>
 
 ## Instruction
