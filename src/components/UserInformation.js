@@ -41,7 +41,7 @@ export function GetDebtInformation() {
     var debt = Number(debtObject.debt);
     var monthlyPayment = Number(debtObject.monthlyPayment);
     interestPerBalance = interestPerBalance.toFixed(8);
-    while (debt >= 0) {
+    while (debt > 0) {
       var MonthlyInterestAmount = debt * interestPerBalance;
       var MonthlyPrincipleAmount = monthlyPayment - MonthlyInterestAmount;
       totalInterests += MonthlyInterestAmount;
