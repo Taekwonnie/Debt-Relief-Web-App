@@ -30,6 +30,8 @@ Features:
 Make sure you have node.js installed. Video tutorial here: https://youtu.be/HrKsQyuhlnY <br />
 Clone this repo then make sure that you're in the project folder, to start this project you must run:
 
+**You will also need to create a new project in firebase and add your api informations to the firebase.js**
+
 ### `1) npm install` do this once to install all dependencies
 
 ### `2) npm start` do this everytime you want to start the website
