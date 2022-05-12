@@ -19,6 +19,7 @@ export default function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const [q, setQ] = useState("");
 
   //Function for the sign up button
   async function handleSubmit(e) {

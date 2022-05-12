@@ -164,8 +164,11 @@ export default function Income() {
     setLoading(true);
     async function fetchTransaction() {
       const preSort = await getIncomeData();
-      const sorted = preSort.sort((first, second) => first.ID - second.ID);
-      setData(sorted);
+      if (preSort) {
+        const sorted = preSort.sort((first, second) => first.ID - second.ID);
+        setData(sorted);
+      }
+
       setLoading(false);
     }
     fetchTransaction();
